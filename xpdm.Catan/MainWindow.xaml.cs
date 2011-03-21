@@ -28,14 +28,9 @@ namespace xpdm.Catan
         int CountX = 9;
         int CountY = 8;
         Tile[][] tiles;
-        IList<string> TwoPlayerTiles = new ArrayList<string> { "OreA", "OreB", "BrickA", "BrickB", "BrickC", "WheatA", "WheatB", "WheatC", "SheepA", "SheepB", "SheepC", "WoodA", "WoodB", "WoodC", };
-        IList<string> DefaultTiles = new ArrayList<string> { "DesertA", "OreA", "OreB", "OreC", "BrickA", "BrickB", "BrickC", "WheatA", "WheatB", "WheatC", "WheatD", "SheepA", "SheepB", "SheepC", "SheepD", "WoodA", "WoodB", "WoodC", "WoodD", };
-        IList<string> ExtendedTiles = new ArrayList<string> { "DesertB", "OreD", "OreE", "BrickD", "BrickE", "WheatE", "WheatF", "SheepE", "SheepF", "WoodE", "WoodF", };
 
         public MainWindow()
         {
-            ExtendedTiles.AddAll(DefaultTiles);
-
             tiles = new Tile[CountX][];
             for (int i = 0; i < CountX; ++i) {
                 tiles[i] = new Tile[CountY];
@@ -182,127 +177,6 @@ namespace xpdm.Catan
             Trace.TraceInformation("Done Enforcing Chit Rule");
         }
         
-        private void PlaceTwoPlayerTiles()
-        {
-            var rng = new Random();
-            var dt = HexTile.TwoPlayerTiles.ToList();
-            foreach (Tile h in AllTiles)
-            {
-                h.Chits.Clear();
-                h.Tag = null;
-                var d1 = tiles[4][2].DistanceTo(h);
-                var d2 = tiles[4][3].DistanceTo(h);
-                if (d1 == 2 && d2 >= 3 || d2 == 2 && d1 >= 3 || d2 == 3 && d1 == 3)
-                {
-                    h.HexTile = new OceanHexTile();
-                }
-                else if (d1 <= 2 && d2 <= 2)
-                {
-                    if (dt.Count == 0)
-                    {
-                        h.HexTile = new DesertHexTile();
-                    }
-                    else
-                    {
-                        var val = rng.Next(dt.Count);
-                        h.HexTile = dt[val];
-                        dt.RemoveAt(val);
-                    }
-                }
-                else
-                {
-                    h.HexTile = null;
-                }
-            }
-            var ct = ProductionChit.DefaultChits.Where(c => c.AlphaOrder != "H").Take(14).ToList();
-            foreach (Tile h in (from t in AllTiles where t.HexTile != null && t.HexTile.IsLand && t.HexTile.TileType != Core.TileType.Desert select t))
-            {
-                var val = rng.Next(ct.Count);
-                h.Chits.Add(ct[val]);
-                ct.RemoveAt(val);
-            }
-        }
-
-        private void PlaceDefaultTiles()
-        {
-            var rng = new Random();
-            var dt = HexTile.DefaultTiles.ToList();
-            foreach (Tile h in AllTiles)
-            {
-                h.Chits.Clear();
-                var d = tiles[4][3].DistanceTo(h);
-                if (d == 3)
-                {
-                    h.HexTile = new OceanHexTile();
-                }
-                else if (d <= 2)
-                {
-                    if (dt.Count == 0)
-                    {
-                        h.HexTile = new DesertHexTile();
-                    }
-                    else
-                    {
-                        var val = rng.Next(dt.Count);
-                        h.HexTile = dt[val];
-                        dt.RemoveAt(val);
-                    }
-                }
-                else
-                {
-                    h.HexTile = null;
-                }
-            }
-            var ct = ProductionChit.DefaultChits.ToList();
-            foreach (Tile h in (from t in AllTiles where t.HexTile != null && t.HexTile.IsLand && t.HexTile.TileType != Core.TileType.Desert select t))
-            {
-                var val = rng.Next(ct.Count);
-                h.Chits.Add(ct[val]);
-                ct.RemoveAt(val);
-            }
-        }
-
-        private void PlaceExtendedTiles()
-        {
-            var rng = new Random();
-            var et = HexTile.ExtendedTiles.ToList();
-            foreach (Tile h in AllTiles)
-            {
-                h.Chits.Clear();
-                h.Tag = null;
-                var d1 = tiles[4][3].DistanceTo(h);
-                var d2 = tiles[4][4].DistanceTo(h);
-                if (d1 == 3 && d2 >= 4 || d2 == 3 && d1 >= 4 || d2 == 4 && d1 == 4)
-                {
-                    h.HexTile = new OceanHexTile();
-                }
-                else if (d1 <= 3 && d2 <= 3)
-                {
-                    if (et.Count == 0)
-                    {
-                        h.HexTile = new DesertHexTile();
-                    }
-                    else
-                    {
-                        var val = rng.Next(et.Count);
-                        h.HexTile = et[val];
-                        et.RemoveAt(val);
-                    }
-                }
-                else
-                {
-                    h.HexTile = null;
-                }
-            }
-            var ct = ProductionChit.ExtendedChits.ToList();
-            foreach (Tile h in (from t in AllTiles where t.HexTile != null && t.HexTile.IsLand && t.HexTile.TileType != Core.TileType.Desert select t))
-            {
-                var val = rng.Next(ct.Count);
-                h.Chits.Add(ct[val]);
-                ct.RemoveAt(val);
-            }
-        }
-
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
