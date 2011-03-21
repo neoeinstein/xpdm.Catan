@@ -80,10 +80,15 @@ namespace xpdm.Catan.Core.Board
             return ProductionChits.Any(c => c.ProducesOn == dieRoll);
         }
 
-        private void ProductionChits_CollectionChanged(object sender)
+        private void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
-                PropertyChanged(sender, new PropertyChangedEventArgs("ProductionChits"));
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void ProductionChits_CollectionChanged(object sender)
+        {
+            OnPropertyChanged("ProductionChits");
         }
 
         public static readonly ICollection<HexTile> TwoPlayerTiles = new GuardedCollection<HexTile>(new ArrayList<HexTile>
