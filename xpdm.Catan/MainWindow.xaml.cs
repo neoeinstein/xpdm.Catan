@@ -209,6 +209,15 @@ namespace xpdm.Catan
             }
         }
 
+        public static readonly DependencyProperty EnforceChitRuleProperty =
+            DependencyProperty.Register("EnforceChitRule", typeof(bool?), typeof(MainWindow), new FrameworkPropertyMetadata((bool?)true));
+
+        public bool? EnforceChitRule
+        {
+            get { return (bool?)GetValue(MainWindow.EnforceChitRuleProperty); }
+            set { SetValue(MainWindow.EnforceChitRuleProperty, value); }
+        }
+
         private void ReLayout()
         {
             switch (LayoutComboBox.SelectedIndex)
@@ -223,7 +232,7 @@ namespace xpdm.Catan
                     DefaultRandomLayout();
                     break;
             }
-            if (EnforceChitRuleCheckBox != null && EnforceChitRuleCheckBox.IsChecked == true)
+            if (EnforceChitRule == true)
             {
                 EnforceCommonChitRule();
             }
