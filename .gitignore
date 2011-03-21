@@ -3,3 +3,4 @@ obj/
 TestResults/
 *.suo
 *.user
+_ReSharper*
