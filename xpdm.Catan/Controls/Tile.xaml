@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="xpdm.Catan.Controls.Tile"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:xpdm.Catan.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="221.7025033688162935715131316992" d:DesignWidth="256" x:ClassModifier="internal">
+    <Grid Height="221.7025033688162935715131316992" Width="256">
+        <Polygon x:Name="Hex" StrokeThickness="1" Points="0,110.8512516844081467857565658496,64,0,192,0,256,110.8512516844081467857565658496,192,221.7025033688162935715131316992,64,221.7025033688162935715131316992" />
+        <TextBlock x:Name="Location" TextAlignment="Center" Visibility="Collapsed" />
+        <Grid x:Name="ChitSpace" Width="150" Height="150" VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+        <!--local:Chit x:Name="Chit" Width="50" Height="50" Visibility="Collapsed" /-->
+    </Grid>
+</UserControl>

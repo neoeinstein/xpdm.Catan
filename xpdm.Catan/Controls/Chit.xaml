@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="xpdm.Catan.Controls.Chit"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:xpdm.Catan.Controls"
+             xmlns:b="clr-namespace:xpdm.Catan.Core.Board"
+             mc:Ignorable="d" 
+             d:DesignHeight="64" d:DesignWidth="64">
+    <Grid Width="64" Height="64">
+        <Ellipse Width="64" Height="64" Style="{DynamicResource ProductionChitBack}" />
+        <TextBlock Style="{DynamicResource ProductionChitAlpha}" HorizontalAlignment="Center" VerticalAlignment="Top" Text="{Binding RelativeSource={RelativeSource AncestorType=local:Chit}, Path=ProductionChit.AlphaOrder}"/>
+        <TextBlock Style="{DynamicResource ProductionChitProducesOn}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding RelativeSource={RelativeSource AncestorType=local:Chit}, Path=ProductionChit.ProducesOn}"/>
+        <TextBlock Style="{DynamicResource ProductionChitPips}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Text="{Binding RelativeSource={RelativeSource AncestorType=local:Chit}, Path=ProductionChit.Pips}"/>
+    </Grid>
+</UserControl>

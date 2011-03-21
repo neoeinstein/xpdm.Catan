@@ -1,0 +1,77 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:control="clr-namespace:xpdm.Catan.Controls;assembly=xpdm.Catan">
+    <ImageBrush x:Key="BrickATileBackground" ImageSource="Images/Tiles/BrickA.png" />
+    <ImageBrush x:Key="BrickBTileBackground" ImageSource="Images/Tiles/BrickB.png" />
+    <ImageBrush x:Key="BrickCTileBackground" ImageSource="Images/Tiles/BrickC.png" />
+    <ImageBrush x:Key="BrickDTileBackground" ImageSource="Images/Tiles/BrickD.png" />
+    <ImageBrush x:Key="BrickETileBackground" ImageSource="Images/Tiles/BrickE.png" />
+    <ImageBrush x:Key="OreATileBackground" ImageSource="Images/Tiles/OreA.png" />
+    <ImageBrush x:Key="OreBTileBackground" ImageSource="Images/Tiles/OreB.png" />
+    <ImageBrush x:Key="OreCTileBackground" ImageSource="Images/Tiles/OreC.png" />
+    <ImageBrush x:Key="OreDTileBackground" ImageSource="Images/Tiles/OreD.png" />
+    <ImageBrush x:Key="OreETileBackground" ImageSource="Images/Tiles/OreE.png" />
+    <ImageBrush x:Key="SheepATileBackground" ImageSource="Images/Tiles/SheepA.png" />
+    <ImageBrush x:Key="SheepBTileBackground" ImageSource="Images/Tiles/SheepB.png" />
+    <ImageBrush x:Key="SheepCTileBackground" ImageSource="Images/Tiles/SheepC.png" />
+    <ImageBrush x:Key="SheepDTileBackground" ImageSource="Images/Tiles/SheepD.png" />
+    <ImageBrush x:Key="SheepETileBackground" ImageSource="Images/Tiles/SheepE.png" />
+    <ImageBrush x:Key="SheepFTileBackground" ImageSource="Images/Tiles/SheepF.png" />
+    <ImageBrush x:Key="WheatATileBackground" ImageSource="Images/Tiles/WheatA.png" />
+    <ImageBrush x:Key="WheatBTileBackground" ImageSource="Images/Tiles/WheatB.png" />
+    <ImageBrush x:Key="WheatCTileBackground" ImageSource="Images/Tiles/WheatC.png" />
+    <ImageBrush x:Key="WheatDTileBackground" ImageSource="Images/Tiles/WheatD.png" />
+    <ImageBrush x:Key="WheatETileBackground" ImageSource="Images/Tiles/WheatE.png" />
+    <ImageBrush x:Key="WheatFTileBackground" ImageSource="Images/Tiles/WheatF.png" />
+    <ImageBrush x:Key="WoodATileBackground" ImageSource="Images/Tiles/WoodA.png" />
+    <ImageBrush x:Key="WoodBTileBackground" ImageSource="Images/Tiles/WoodB.png" />
+    <ImageBrush x:Key="WoodDTileBackground" ImageSource="Images/Tiles/WoodC.png" />
+    <ImageBrush x:Key="WoodCTileBackground" ImageSource="Images/Tiles/WoodD.png" />
+    <ImageBrush x:Key="WoodETileBackground" ImageSource="Images/Tiles/WoodE.png" />
+    <ImageBrush x:Key="WoodFTileBackground" ImageSource="Images/Tiles/WoodF.png" />
+    <ImageBrush x:Key="DesertATileBackground" ImageSource="Images/Tiles/DesertA.png" />
+    <ImageBrush x:Key="DesertBTileBackground" ImageSource="Images/Tiles/DesertB.png" />
+    <ImageBrush x:Key="OceanATileBackground" ImageSource="Images/Tiles/OceanA.png" />
+
+    <SolidColorBrush x:Key="TileBackground" Color="White" />
+    <SolidColorBrush x:Key="CatanBlank" Color="Bisque" />
+    <SolidColorBrush x:Key="ProductionChitTextCommon" Color="Firebrick" />
+    <FontFamily x:Key="GameBoardTextFont">Palatino Linotype</FontFamily>
+    <Style x:Key="GameBoardText">
+        <Setter Property="TextBlock.FontFamily" Value="{StaticResource GameBoardTextFont}" />
+        <Setter Property="TextBlock.Foreground" Value="Black" />
+    </Style>
+    <Style x:Key="ProductionChitText" BasedOn="{StaticResource GameBoardText}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=control:Chit}, Path=IsCommon}" Value="true">
+                <Setter Property="TextBlock.Foreground" Value="{DynamicResource ProductionChitTextCommon}" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="ProductionChitAlpha" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ProductionChitText}">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Margin" Value="0,4,0,0"/>
+    </Style>
+    <Style x:Key="ProductionChitProducesOn" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ProductionChitText}">
+        <Setter Property="FontSize" Value="36"/>
+        <Setter Property="Margin" Value="0,0,0,0"/>
+    </Style>
+    <Style x:Key="ProductionChitPips" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ProductionChitText}">
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="Margin" Value="0,0,0,5"/>
+    </Style>
+    <Style x:Key="ProductionChitBack">
+        <Setter Property="Shape.Fill" Value="{StaticResource CatanBlank}"/>
+        <Setter Property="Shape.BitmapEffect">
+            <Setter.Value>
+                <DropShadowBitmapEffect ShadowDepth="2"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="control:Chit">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsCommon}" Value="true">
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>
