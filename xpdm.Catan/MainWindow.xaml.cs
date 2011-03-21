@@ -203,9 +203,7 @@ namespace xpdm.Catan
         {
             get
             {
-                foreach (Tile[] t in tiles)
-                    foreach(Tile h in t)
-                        yield return h;
+                return tiles.SelectMany(t => t);
             }
         }
 
