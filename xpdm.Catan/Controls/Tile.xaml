@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:xpdm.Catan.Controls" xmlns:Board="clr-namespace:xpdm.Catan.Core.Board" mc:Ignorable="d" 
-             d:DesignHeight="221.7025033688162935715131316992" d:DesignWidth="256" x:ClassModifier="internal">
+             d:DesignHeight="221.7025033688162935715131316992" d:DesignWidth="256" x:ClassModifier="internal" Name="Self">
     <UserControl.Resources>
         <CollectionViewSource Source="{Binding RelativeSource={RelativeSource Self}, Path=Chits}" x:Key="Chits" />
         <local:ProductionChitConverter x:Key="ChitConverter" />
@@ -12,7 +12,12 @@
     <Grid Height="221.7025033688162935715131316992" Width="256">
         <Polygon x:Name="Hex" StrokeThickness="1" Points="0,110.8512516844081467857565658496,64,0,192,0,256,110.8512516844081467857565658496,192,221.7025033688162935715131316992,64,221.7025033688162935715131316992" />
         <TextBlock x:Name="Location" TextAlignment="Center" Visibility="Collapsed" />
-        <local:UniformStretchGrid VerticalAlignment="Center" HorizontalAlignment="Center" Width="150" Height="150" x:Name="ChitTest" ItemsSource="{Binding Source={StaticResource Chits}, Converter={StaticResource ChitConverter}}">
+        <local:UniformStretchGrid VerticalAlignment="Center" HorizontalAlignment="Center" Width="150" Height="150" x:Name="ChitTest" ItemsSource="{Binding ElementName=Self, Path=Chits}">
+            <local:UniformStretchGrid.ItemTemplate>
+                <DataTemplate>
+                    <local:Chit ProductionChit="{Binding}"/>
+                </DataTemplate>
+            </local:UniformStretchGrid.ItemTemplate>
         </local:UniformStretchGrid>
         <Grid x:Name="ChitSpace" Width="150" Height="150" VerticalAlignment="Center" Visibility="Collapsed">
             <Grid.RowDefinitions>
