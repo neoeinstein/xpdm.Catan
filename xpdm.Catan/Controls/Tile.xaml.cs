@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using xpdm.Catan.Core.Board;
+using System.Collections.ObjectModel;
 
 namespace xpdm.Catan.Controls
 {
@@ -26,21 +27,20 @@ namespace xpdm.Catan.Controls
 
         static Tile()
         {
-            Tile.Chits2PropertyKey = DependencyProperty.RegisterReadOnly("Chits2", typeof(IList<ProductionChit>), typeof(Tile), new FrameworkPropertyMetadata(new ArrayList<ProductionChit>()));
-            Tile.Chits2Property = Tile.Chits2PropertyKey.DependencyProperty;
             Tile.HexTileProperty = DependencyProperty.Register("HexTile", typeof(HexTile), typeof(Tile), new FrameworkPropertyMetadata(new EmptyHexTile(), FrameworkPropertyMetadataOptions.AffectsRender, new PropertyChangedCallback(OnHexTilePropertyChanged)));
             Tile.HexTileBackgroundProperty = DependencyProperty.Register("HexTileBackground", typeof(Brush), typeof(Tile), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender));
         }
 
-        public IList<ProductionChit> Chits = new ArrayList<ProductionChit>();
+        public ObservableCollection<ProductionChit> Chits
+        {
+            get;
+            set;
+        }
 
         public Tile(Gameboard gameboard, int X, int Y)
         {
-            
-            var lst = new ArrayList<ProductionChit>();
-            Chits.CollectionChanged += Chits_CollectionChanged;
-            lst.CollectionChanged += new CollectionChangedHandler<ProductionChit>(Chits_CollectionChanged);
-            SetValue(Tile.Chits2PropertyKey, lst);
+            Chits = new ObservableCollection<ProductionChit>();
+            //Chits.CollectionChanged += Chits_CollectionChanged;
 
             this.X = X;
             this.Y = Y;
@@ -54,7 +54,7 @@ namespace xpdm.Catan.Controls
 
             InitializeComponent();
             this.Location.Text = X + "," + Y;
-
+            //ChitTest.ItemsSource = Chits;
             /*var points = new [] {
                 new Point(0, heightConstant),
                 new Point(.5, 0),
@@ -69,12 +69,13 @@ namespace xpdm.Catan.Controls
 
         void Chits_CollectionChanged(object sender)
         {
-            ChitTest.Items.Clear();
+            ChitTest.InvalidateProperty(ItemsControl.ItemsSourceProperty);
+            /*ChitTest.Items.Clear();
             foreach (var chit in Chits)
             {
                 ChitTest.Items.Add(new Chit(chit));
-            }
-            ChitTest.InvalidateArrange();
+            }*/
+            //ChitTest.InvalidateArrange();
 /*            ChitSpace.Children.Clear();
             var count = Chits.Count;
             Chit chit;
@@ -230,14 +231,6 @@ namespace xpdm.Catan.Controls
                 return "Transparent";
             }
             //return back;
-        }
-
-        private static readonly DependencyPropertyKey Chits2PropertyKey;
-        public static readonly DependencyProperty Chits2Property;
-
-        public IList<ProductionChit> Chits2
-        {
-            get { return (IList<ProductionChit>)GetValue(Tile.Chits2Property); }
         }
 
         public static readonly DependencyProperty HexTileProperty;

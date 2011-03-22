@@ -37,9 +37,15 @@ namespace xpdm.Catan.Controls
             ItemsPresenter = (ItemsPresenter) GetTemplateChild("ItemsPresenter");
         }
 
+        protected override void OnItemsChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            base.OnItemsChanged(e);
+            UpdateMeasure();
+        }
+
         protected override Size ArrangeOverride(Size arrangeBounds)
         {
-            UpdateMeasure();
+            ArrangePanel();
             return base.ArrangeOverride(arrangeBounds);
         }
 
@@ -66,8 +72,6 @@ namespace xpdm.Catan.Controls
                         target.ColumnDefinitions.Add(new ColumnDefinition());
                 }
             }
-
-            ArrangePanel();
         }
 
         protected void RecalculateRowColumns()

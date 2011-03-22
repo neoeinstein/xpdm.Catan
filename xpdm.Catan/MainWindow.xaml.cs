@@ -69,7 +69,7 @@ namespace xpdm.Catan
             hexRandom.AddAll(from hex in hexes orderby RNG.Next() select hex);
             foreach (var t in tiles)
             {
-                t.Chits2.Clear();
+                t.Chits.Clear();
                 var d1 = this.tiles[x1][y1].DistanceTo(t);
                 var d2 = this.tiles[x2][y2].DistanceTo(t);
                 if (d1 == maxd1 && d2 >= maxd2 + 1 || d1 >= maxd1 + 1 && d2 == maxd2 || d1 == maxd1 + 1 && d2 == maxd2 + 1)
@@ -120,7 +120,7 @@ namespace xpdm.Catan
         {
             RandomBoardLayout(AllTiles, HexTile.TwoPlayerTiles, 4, 2, 4, 3, 2, 2);
             RandomChitLayout(AllTiles, ProductionChit.DefaultChits.Where(c => c.AlphaOrder != "H").Take(14));
-            AllTiles.First(t => t.Chits.Exists(c => c.AlphaOrder == "B")).Chits.Add(ProductionChit.DefaultChits.First(c => c.AlphaOrder == "H"));
+            AllTiles.First(t => t.Chits.Any(c => c.AlphaOrder == "B")).Chits.Add(ProductionChit.DefaultChits.First(c => c.AlphaOrder == "H"));
         }
 
         private void EnforceCommonChitRule()
@@ -129,15 +129,15 @@ namespace xpdm.Catan
             try
             {
                 Trace.Indent();
-                var commonTiles = from tile in AllTiles where tile.Chits.Exists(c => c.IsCommon) select tile;
+                var commonTiles = from tile in AllTiles where tile.Chits.Any(c => c.IsCommon) select tile;
                 var commonLimit = commonTiles.Count();
                 var tooClose = (from tile1 in commonTiles from tile2 in commonTiles where tile1.DistanceTo(tile2) == 1 select new { Tile1 = tile1, Tile2 = tile2 }).FirstOrDefault();
                 while (tooClose != null && commonLimit > 0)
                 {
                     Trace.TraceInformation("Found common chits too close together: ({0},{1}:{2}), ({3},{4}:{5})",
-                        tooClose.Tile1.X, tooClose.Tile1.Y, tooClose.Tile1.Chits.First.ProducesOn,
-                        tooClose.Tile2.X, tooClose.Tile2.Y, tooClose.Tile2.Chits.First.ProducesOn);
-                    var targetLocation = (from tile in AllTiles where commonTiles.All(t => t.DistanceTo(tile) > 1) && !tile.Chits.IsEmpty orderby RNG.Next() select tile).FirstOrDefault();
+                        tooClose.Tile1.X, tooClose.Tile1.Y, tooClose.Tile1.Chits.First().ProducesOn,
+                        tooClose.Tile2.X, tooClose.Tile2.Y, tooClose.Tile2.Chits.First().ProducesOn);
+                    var targetLocation = (from tile in AllTiles where commonTiles.All(t => t.DistanceTo(tile) > 1) && tile.Chits.Count != 0 orderby RNG.Next() select tile).FirstOrDefault();
                     try
                     {
                         Trace.Indent();
@@ -148,16 +148,24 @@ namespace xpdm.Catan
                         }
                         var distances = (from tile in commonTiles select tile.DistanceTo(targetLocation)).ToArray();
                         Trace.TraceInformation("Will exchange with ({0},{1}:{2}) Distances: ({3})",
-                            targetLocation.X, targetLocation.Y, targetLocation.Chits.First.ProducesOn,
+                            targetLocation.X, targetLocation.Y, targetLocation.Chits.First().ProducesOn,
                             string.Join(",", distances));
                         var temp = targetLocation.Chits.ToArray();
                         targetLocation.Chits.Clear();
-                        targetLocation.Chits.AddAll(tooClose.Tile1.Chits);
+                        foreach (var c in tooClose.Tile1.Chits)
+                        {
+                            targetLocation.Chits.Add(c);
+                        }
+                        //targetLocation.Chits.AddAll(tooClose.Tile1.Chits);
                         tooClose.Tile1.Chits.Clear();
-                        tooClose.Tile1.Chits.AddAll(temp);
+                        foreach (var c in temp)
+                        {
+                            tooClose.Tile1.Chits.Add(c);
+                        }
+                        //tooClose.Tile1.Chits.AddAll(temp);
                         Trace.TraceInformation("Exchanged chits: ({0},{1}:{2}), ({3},{4}:{5})",
-                            tooClose.Tile1.X, tooClose.Tile1.Y, tooClose.Tile1.Chits.First.ProducesOn,
-                            targetLocation.X, targetLocation.Y, targetLocation.Chits.First.ProducesOn);
+                            tooClose.Tile1.X, tooClose.Tile1.Y, tooClose.Tile1.Chits.First().ProducesOn,
+                            targetLocation.X, targetLocation.Y, targetLocation.Chits.First().ProducesOn);
                         commonLimit--;
                         tooClose = (from tile1 in commonTiles from tile2 in commonTiles where tile1.DistanceTo(tile2) == 1 select new { Tile1 = tile1, Tile2 = tile2 }).FirstOrDefault();
                     }

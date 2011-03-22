@@ -150,6 +150,7 @@
       <DependentUpon>Chit.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ItemContainer.cs" />
+    <Compile Include="Controls\ProductionChitConverter.cs" />
     <Compile Include="Controls\UniformStretchGrid.cs" />
     <Compile Include="Controls\GameboardGrid.cs" />
     <Compile Include="Controls\VerticalFlowDirection.cs" />
