@@ -113,5 +113,10 @@ namespace xpdm.Catan.Core.Board
             get;
             protected set;
         }
+
+        public override string ToString()
+        {
+            return string.Format("{{{0},{1}}}", ProducesOn, AlphaOrder);
+        }
     }
 }
