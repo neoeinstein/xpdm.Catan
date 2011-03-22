@@ -1,7 +1,7 @@
 ﻿<Window x:Class="xpdm.Catan.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:xpdm.Catan"
+        xmlns:local="clr-namespace:xpdm.Catan.Controls"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         Title="Settlers of Catan Board Designer" Height="720" Width="1080" x:ClassModifier="internal" Name="Self">
     <Window.Resources>
@@ -14,7 +14,8 @@
         </Grid.ColumnDefinitions>
         <ScrollViewer x:Name="View" Grid.Column="0">
             <Viewbox Stretch="UniformToFill">
-                <Grid Name="TileLayer" Margin="12,12,12,12" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <!--Grid Name="TileLayer" Margin="12,12,12,12" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Collapsed"/-->
+                <local:HexagonalGrid x:Name="TheGrid" Margin="12" HorizontalAlignment="Left" VerticalAlignment="Top" GridEdgeLength="128"/>
             </Viewbox>
         </ScrollViewer>
         <StackPanel Grid.Column="1" Margin="20">

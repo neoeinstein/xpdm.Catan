@@ -58,15 +58,10 @@ namespace xpdm.Catan.Controls
             if (X % 2 == 0)
                 offsetY += heightConstant * 128;
 
-            this.Position = new Point(offsetX, offsetY);
+            //this.Position = new Point(offsetX, offsetY);
 
             InitializeComponent();
             this.Location.Text = X + "," + Y;
-        }
-
-        public bool IsOffset
-        {
-            get { return (X % 2 == 0); }
         }
 
         public int DistanceTo(Tile h)
@@ -76,22 +71,7 @@ namespace xpdm.Catan.Controls
 
         public int DistanceTo(int x, int y)
         {
-            var dY = Math.Abs(y - Y);
-            if (x == X)
-                return dY;
-
-            var dX = Math.Abs(x - X);
-            if (y == Y)
-                return dX;
-
-            var d = (!IsOffset && (x % 2 == 0) && y < Y || IsOffset && (x % 2 != 0) && y > Y);
-            return dX + dY - Math.Min(dX, (d ? 0 : 2) + dY) / 2 - (d ? 1 : 0);
-        }
-
-        public Point Position
-        {
-            get;
-            private set;
+            return Gameboard.DistanceBetween(this.X, this.Y, x, y);
         }
 
         public int X

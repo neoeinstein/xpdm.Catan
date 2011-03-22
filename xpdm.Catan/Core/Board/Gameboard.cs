@@ -8,22 +8,33 @@ namespace xpdm.Catan.Core.Board
 {
     class Gameboard : System.ComponentModel.INotifyPropertyChanged
     {
-        private IList<IList<HexTile>> board;
-
-        public Gameboard(int height, int width)
+        private readonly IList<IList<HexTile>> board;
+        public int Rows
         {
-            board = new ArrayList<IList<HexTile>>(height);
-            for (int i = 0; i < height; ++i)
+            get;
+            private set;
+        }
+        public int Columns
+        {
+            get;
+            private set;
+        }
+
+        public Gameboard(int rows, int columns)
+        {
+            Rows = rows;
+            Columns = columns;
+
+            board = new ArrayList<IList<HexTile>>(rows);
+            for (int i = 0; i < rows; ++i)
             {
-                board.Add(new ArrayList<HexTile>(width));
-                for (int j = 0; j < width; ++j)
+                board.Add(new ArrayList<HexTile>(columns));
+                for (int j = 0; j < columns; ++j)
                 {
                     board[i].Add(new EmptyHexTile());
                 }
             }
         }
-
-
 
         public static bool IsOffset(int col)
         {
