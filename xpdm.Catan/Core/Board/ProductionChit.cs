@@ -69,13 +69,16 @@ namespace xpdm.Catan.Core.Board
             get { return extendedChits; }
         }
 
+        //private const char Pip = '•';
+        private const char Pip = '●';
+
         public ProductionChit(int producesOn, string alphaOrder)
         {
             if (producesOn > 12 || producesOn < 2)
                 throw new ArgumentOutOfRangeException("producesOn", producesOn, "Value is not possible on two six-sided dice.");
             this.ProducesOn = producesOn;
             this.AlphaOrder = alphaOrder;
-            this.Pips = new string('•', PipValue);
+            this.Pips = new string(Pip, PipValue);
         }
 
         public int ProducesOn
