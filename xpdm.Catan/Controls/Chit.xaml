@@ -6,13 +6,13 @@
              xmlns:local="clr-namespace:xpdm.Catan.Controls"
              xmlns:b="clr-namespace:xpdm.Catan.Core.Board"
              mc:Ignorable="d" 
-             d:DesignHeight="64" d:DesignWidth="64">
+             d:DesignHeight="64" d:DesignWidth="64" Name="Self">
     <Viewbox StretchDirection="DownOnly">
     <Grid Width="64" Height="64">
         <Ellipse Width="64" Height="64" Style="{DynamicResource ProductionChitBack}" />
-        <TextBlock Style="{DynamicResource ProductionChitAlpha}" HorizontalAlignment="Center" VerticalAlignment="Top" Text="{Binding RelativeSource={RelativeSource AncestorType=local:Chit}, Path=ProductionChit.AlphaOrder}"/>
-        <TextBlock Style="{DynamicResource ProductionChitProducesOn}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding RelativeSource={RelativeSource AncestorType=local:Chit}, Path=ProductionChit.ProducesOn}"/>
-        <TextBlock Style="{DynamicResource ProductionChitPips}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Text="{Binding RelativeSource={RelativeSource AncestorType=local:Chit}, Path=ProductionChit.Pips}"/>
+        <TextBlock Style="{DynamicResource ProductionChitAlpha}" HorizontalAlignment="Center" VerticalAlignment="Top" Text="{Binding ElementName=Self, Path=ProductionChit.AlphaOrder}"/>
+            <TextBlock Style="{DynamicResource ProductionChitProducesOn}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding ElementName=Self, Path=ProductionChit.ProducesOn}"/>
+            <TextBlock Style="{DynamicResource ProductionChitPips}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Text="{Binding ElementName=Self, Path=ProductionChit.Pips}"/>
     </Grid>
     </Viewbox>
 </UserControl>

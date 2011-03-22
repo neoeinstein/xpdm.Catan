@@ -24,12 +24,33 @@ namespace xpdm.Catan.Controls
 
         static Chit()
         {
+            Chit.ProductionChitProperty = DependencyProperty.Register("ProductionChit", typeof (ProductionChit),
+                                                                      typeof (Chit), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender, new PropertyChangedCallback(OnChitPropertyChanged)));
+            Chit.IsCommonPropertyKey = DependencyProperty.RegisterAttachedReadOnly("IsCommon", typeof(bool),
+                                                                      typeof(Chit), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsRender | FrameworkPropertyMetadataOptions.Inherits));
+            Chit.IsCommonProperty = Chit.IsCommonPropertyKey.DependencyProperty;
         }
+
+        public static readonly DependencyProperty ProductionChitProperty;
 
         public ProductionChit ProductionChit
         {
-            get;
-            set;
+            get { return (ProductionChit) GetValue(Chit.ProductionChitProperty); }
+            set { SetValue(Chit.ProductionChitProperty, value); }
+        }
+
+        private static readonly DependencyPropertyKey IsCommonPropertyKey;
+        public static readonly DependencyProperty IsCommonProperty;
+
+        public bool IsCommon
+        {
+            get { return (bool) GetValue(Chit.IsCommonProperty); }
+            private set { SetValue(Chit.IsCommonPropertyKey, value); }
+        }
+
+        public static bool GetIsCommon(Chit chit)
+        {
+            return (bool) chit.GetValue(Chit.IsCommonProperty);
         }
 
         public Chit()
@@ -37,15 +58,21 @@ namespace xpdm.Catan.Controls
             InitializeComponent();
         }
 
-        public Chit(ProductionChit pc)
+        public Chit(ProductionChit pc) : this()
         {
             ProductionChit = pc;
-            InitializeComponent();
         }
 
-        public bool IsCommon
+        private static void OnChitPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            get { return ProductionChit != null ? ProductionChit.IsCommon : false; }
+            var c = d as Chit;
+            if (c == null)
+                return;
+
+            if (e.Property == Chit.ProductionChitProperty)
+            {
+                c.IsCommon = c.ProductionChit != null ? c.ProductionChit.IsCommon : false;
+            }
         }
     }
 }

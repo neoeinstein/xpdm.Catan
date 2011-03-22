@@ -27,14 +27,22 @@ namespace xpdm.Catan.Controls
 
         static Tile()
         {
-            Tile.HexTileProperty = DependencyProperty.Register("HexTile", typeof(HexTile), typeof(Tile), new FrameworkPropertyMetadata(new EmptyHexTile(), FrameworkPropertyMetadataOptions.AffectsRender, new PropertyChangedCallback(OnHexTilePropertyChanged)));
-            Tile.HexTileBackgroundProperty = DependencyProperty.Register("HexTileBackground", typeof(Brush), typeof(Tile), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender));
+            Tile.ChitsPropertyKey = DependencyProperty.RegisterReadOnly("Chits", typeof(ObservableCollection<ProductionChit>), typeof(Tile), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsRender, OnDependencyPropertyChanged));
+            Tile.ChitsProperty = Tile.ChitsPropertyKey.DependencyProperty;
+            Tile.HexTileProperty = DependencyProperty.Register("HexTile", typeof(HexTile), typeof(Tile), new FrameworkPropertyMetadata(new EmptyHexTile(), FrameworkPropertyMetadataOptions.AffectsRender, new PropertyChangedCallback(OnDependencyPropertyChanged)));
         }
 
-        public ObservableCollection<ProductionChit> Chits
+        private static void OnDependencyPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            get;
-            set;
+        }
+
+        private static readonly DependencyPropertyKey ChitsPropertyKey;
+        public static readonly DependencyProperty ChitsProperty;
+
+        public SCG.IList<ProductionChit> Chits
+        {
+            get { return (ObservableCollection<ProductionChit>) GetValue(Tile.ChitsProperty); }
+            private set { SetValue(Tile.ChitsPropertyKey, value); }
         }
 
         public Tile(Gameboard gameboard, int X, int Y)
@@ -54,100 +62,6 @@ namespace xpdm.Catan.Controls
 
             InitializeComponent();
             this.Location.Text = X + "," + Y;
-            //ChitTest.ItemsSource = Chits;
-            /*var points = new [] {
-                new Point(0, heightConstant),
-                new Point(.5, 0),
-                new Point(1.5, 0),
-                new Point(2, heightConstant),
-                new Point(1.5, heightConstant * 2),
-                new Point(1, heightConstant * 2),
-            };
-            var t = from point in points select new Point(point.X * Width / 2, point.Y * Height / heightConstant * 2);*/
-            //Hex.Points = new PointCollection(t);
-        }
-
-        void Chits_CollectionChanged(object sender)
-        {
-            ChitTest.InvalidateProperty(ItemsControl.ItemsSourceProperty);
-            /*ChitTest.Items.Clear();
-            foreach (var chit in Chits)
-            {
-                ChitTest.Items.Add(new Chit(chit));
-            }*/
-            //ChitTest.InvalidateArrange();
-/*            ChitSpace.Children.Clear();
-            var count = Chits.Count;
-            Chit chit;
-            switch (Chits.Count)
-            {
-                case 0:
-                    break;
-                case 1:
-                    chit = new Chit(Chits[0]);
-                    Grid.SetColumn(chit, 0);
-                    Grid.SetRow(chit, 0);
-                    Grid.SetColumnSpan(chit, 2);
-                    Grid.SetRowSpan(chit, 2);
-                    ChitSpace.Children.Add(chit);
-                    break;
-                case 2:
-                    chit = new Chit(Chits[0]);
-                    Grid.SetColumn(chit, 0);
-                    Grid.SetRow(chit, 0);
-                    Grid.SetRowSpan(chit, 2);
-                    ChitSpace.Children.Add(chit);
-                    chit = new Chit(Chits[1]);
-                    Grid.SetColumn(chit, 1);
-                    Grid.SetRow(chit, 0);
-                    Grid.SetRowSpan(chit, 2);
-                    ChitSpace.Children.Add(chit);
-                    break;
-                case 3:
-                    chit = new Chit(Chits[0]);
-                    Grid.SetColumn(chit, 0);
-                    Grid.SetRow(chit, 0);
-                    ChitSpace.Children.Add(chit);
-                    chit = new Chit(Chits[1]);
-                    Grid.SetColumn(chit, 1);
-                    Grid.SetRow(chit, 0);
-                    ChitSpace.Children.Add(chit);
-                    chit = new Chit(Chits[2]);
-                    Grid.SetColumn(chit, 0);
-                    Grid.SetRow(chit, 1);
-                    Grid.SetColumnSpan(chit, 2);
-                    ChitSpace.Children.Add(chit);
-                    break;
-                default:
-                    chit = new Chit(Chits[0]);
-                    Grid.SetColumn(chit, 0);
-                    Grid.SetRow(chit, 0);
-                    ChitSpace.Children.Add(chit);
-                    chit = new Chit(Chits[1]);
-                    Grid.SetColumn(chit, 1);
-                    Grid.SetRow(chit, 0);
-                    ChitSpace.Children.Add(chit);
-                    chit = new Chit(Chits[2]);
-                    Grid.SetColumn(chit, 0);
-                    Grid.SetRow(chit, 1);
-                    ChitSpace.Children.Add(chit);
-                    chit = new Chit(Chits[3]);
-                    Grid.SetColumn(chit, 1);
-                    Grid.SetRow(chit, 1);
-                    ChitSpace.Children.Add(chit);
-                    break;
-            }
-
-            /*
-            for (int i = 0; i < Chits.Count; ++i)
-            {
-                var chit = new Chit(Chits[i]);
-                Grid.SetColumn(chit, i % 2);
-                Grid.SetRow(chit, i / 2);
-                if (i == Chits.Count - 1 && i % 2 == 0)
-                    Grid.SetColumnSpan(chit, 2);
-                ChitSpace.Children.Add(chit);
-            }*/
         }
 
         public bool IsOffset
@@ -192,26 +106,13 @@ namespace xpdm.Catan.Controls
             private set;
         }
 
-        /*public Brush Fill
-        {
-            get { return Hex.Fill; }
-            set
-            {
-                if (value == null)
-                    Hex.Stroke = null;
-                else
-                    Hex.Stroke = Brushes.LightGray;
-                Hex.Fill = value;
-            }
-        }*/
-
         private object CalculateHexTileBackground(HexTile tile)
         {
             if (tile == null)
                 return Brushes.Transparent;
 
             return tile.TileType.ToString() + tile.CustomTileType + tile.TileVariant + "TileBackground";
-
+            /*
             var back = TryFindResource(tile.TileType.ToString() + tile.CustomTileType + tile.TileVariant + "TileBackground") as Brush;
             if (back == null)
             {
@@ -229,8 +130,71 @@ namespace xpdm.Catan.Controls
             {
                 System.Diagnostics.Trace.TraceWarning("Unable to find background resource '{0}'", tile.TileType.ToString() + tile.CustomTileType + tile.TileVariant + "TileBackground");
                 return "Transparent";
-            }
+            }*/
             //return back;
+        }
+
+        private static Binding TryCreateBinding(FrameworkElement e, string resourceName)
+        {
+            var resource = e.TryFindResource(resourceName);
+            if (resource != null)
+                return new Binding { Source = resource, IsAsync = true };
+            return null;
+        }
+
+        private const string HighQualityResourceQualifier = "HighQuality";
+
+        private static Binding TryCreateHighQualityBinding(FrameworkElement e, string resourceName)
+        {
+            return TryCreateBinding(e, resourceName + HighQualityResourceQualifier);
+        }
+
+        private BindingBase CreateHexTileBackgroundBinding(HexTile tile)
+        {
+            var baseBinding = new PriorityBinding();
+
+            if (tile != null)
+            {
+                BindingBase bind;
+
+                bind = TryCreateHighQualityBinding(this, tile.TileType.ToString() + tile.CustomTileType + tile.TileVariant + "TileBackground");
+                if (bind != null)
+                    baseBinding.Bindings.Add(bind);
+                
+                bind = TryCreateBinding(this, tile.TileType.ToString() + tile.CustomTileType + tile.TileVariant + "TileBackground");
+                if (bind != null)
+                    baseBinding.Bindings.Add(bind);
+
+                bind = TryCreateHighQualityBinding(this, tile.TileType.ToString() + tile.CustomTileType + "TileBackground");
+                if (bind != null)
+                    baseBinding.Bindings.Add(bind);
+
+                bind = TryCreateBinding(this, tile.TileType.ToString() + tile.CustomTileType + "TileBackground");
+                if (bind != null)
+                    baseBinding.Bindings.Add(bind);
+
+                bind = TryCreateHighQualityBinding(this, tile.TileType.ToString() + "TileBackground");
+                if (bind != null)
+                    baseBinding.Bindings.Add(bind);
+
+                bind = TryCreateBinding(this, tile.TileType.ToString() + "TileBackground");
+                if (bind != null)
+                    baseBinding.Bindings.Add(bind);
+
+                bind = TryCreateHighQualityBinding(this, "TileBackground");
+                if (bind != null)
+                    baseBinding.Bindings.Add(bind);
+
+                bind = TryCreateBinding(this, "TileBackground");
+                if (bind != null)
+                    baseBinding.Bindings.Add(bind);
+
+            }
+
+            baseBinding.Bindings.Add(new Binding { Source = Brushes.Red });
+            //baseBinding.FallbackValue = Brushes.Transparent;
+
+            return baseBinding;
         }
 
         public static readonly DependencyProperty HexTileProperty;
@@ -241,6 +205,9 @@ namespace xpdm.Catan.Controls
             set 
             {
                 SetValue(Tile.HexTileProperty, value);
+                //Hex.ClearValue(Polygon.FillProperty);
+                //Hex.SetBinding(Polygon.FillProperty, CreateHexTileBackgroundBinding(value));
+                
                 var bg = CalculateHexTileBackground(value);
                 if (bg is string)
                 {
@@ -250,31 +217,7 @@ namespace xpdm.Catan.Controls
                 {
                     Hex.Fill = bg as Brush;
                 }
-                //SetResourceReference(Tile.HexTileBackgroundProperty, CalculateHexTileBackground(value));
             }
-        }
-
-        private static void OnHexTilePropertyChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
-        {
-            if (e.OldValue != null)
-            {
-                ((HexTile)e.OldValue).PropertyChanged -= HexTileChitsChanged;
-            }
-            if (e.NewValue != null)
-            {
-                ((HexTile)e.NewValue).PropertyChanged += HexTileChitsChanged;
-            }
-        }
-
-        private static void HexTileChitsChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-        }
-
-        public static readonly DependencyProperty HexTileBackgroundProperty;
-
-        public Brush HexTileBackground
-        {
-            get { return (Brush)GetValue(Tile.HexTileBackgroundProperty); }
         }
     }
 }
