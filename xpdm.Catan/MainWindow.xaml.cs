@@ -32,15 +32,19 @@ namespace xpdm.Catan
 
         public MainWindow()
         {
+            var board = new Gameboard(CountY, CountX);
             tiles = new Tile[CountX][];
             for (int i = 0; i < CountX; ++i) {
                 tiles[i] = new Tile[CountY];
                 for (int j = 0; j < CountY; ++j) {
-                    Tile h = new Tile(null, i,j);
+                    Tile h = new Tile(board, i,j);
 
-                    h.SetValue(FrameworkElement.MarginProperty, new Thickness(h.Position.X, h.Position.Y, 0, 0));
-                    h.SetValue(FrameworkElement.HorizontalAlignmentProperty, HorizontalAlignment.Left);
-                    h.SetValue(FrameworkElement.VerticalAlignmentProperty, VerticalAlignment.Top);
+                    //h.SetValue(FrameworkElement.MarginProperty, new Thickness(h.Position.X, h.Position.Y, 0, 0));
+                    //h.SetValue(FrameworkElement.HorizontalAlignmentProperty, HorizontalAlignment.Left);
+                    //h.SetValue(FrameworkElement.VerticalAlignmentProperty, VerticalAlignment.Top);
+
+                    h.SetValue(HexagonalGrid.RowProperty, j);
+                    h.SetValue(HexagonalGrid.ColumnProperty, i);
                     //Canvas.SetLeft(h, h.Position.X);
                     //Canvas.SetTop(h, h.Position.Y);
 
@@ -49,10 +53,14 @@ namespace xpdm.Catan
             }
 
             InitializeComponent();
+            this.TheGrid.Gameboard = board;
             foreach (var t in AllTiles)
             {
-                this.TileLayer.Children.Add(t);
+                //this.TileLayer.Children.Add(t);
+                this.TheGrid.Children.Add(t);
             }
+            this.TheGrid.InvalidateMeasure();
+            this.TheGrid.InvalidateArrange();
             
             var count = CountX * CountY;
         }
@@ -223,7 +231,14 @@ namespace xpdm.Catan
         }
 
         public static readonly DependencyProperty EnforceChitRuleProperty =
-            DependencyProperty.Register("EnforceChitRule", typeof(bool?), typeof(MainWindow), new FrameworkPropertyMetadata((bool?)true));
+            DependencyProperty.Register("EnforceChitRule", typeof(bool?), typeof(MainWindow), new FrameworkPropertyMetadata((bool?)true, CommonChitRuleEnforcementChanged));
+
+        private static void CommonChitRuleEnforcementChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var w = (MainWindow) d;
+            if((bool)e.NewValue == true)
+                w.EnforceCommonChitRule();
+        }
 
         public bool? EnforceChitRule
         {
