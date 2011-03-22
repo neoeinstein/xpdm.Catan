@@ -205,10 +205,10 @@ namespace xpdm.Catan.Controls
             }
         }*/
 
-        private string CalculateHexTileBackground(HexTile tile)
+        private object CalculateHexTileBackground(HexTile tile)
         {
             if (tile == null)
-                return "Transparent";
+                return Brushes.Transparent;
 
             return tile.TileType.ToString() + tile.CustomTileType + tile.TileVariant + "TileBackground";
 
@@ -241,7 +241,15 @@ namespace xpdm.Catan.Controls
             set 
             {
                 SetValue(Tile.HexTileProperty, value);
-                Hex.SetResourceReference(Polygon.FillProperty, CalculateHexTileBackground(value));
+                var bg = CalculateHexTileBackground(value);
+                if (bg is string)
+                {
+                    Hex.SetResourceReference(Polygon.FillProperty, CalculateHexTileBackground(value));
+                }
+                else
+                {
+                    Hex.Fill = bg as Brush;
+                }
                 //SetResourceReference(Tile.HexTileBackgroundProperty, CalculateHexTileBackground(value));
             }
         }
