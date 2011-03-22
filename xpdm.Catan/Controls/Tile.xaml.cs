@@ -26,18 +26,21 @@ namespace xpdm.Catan.Controls
 
         static Tile()
         {
-            Tile.ChitsPropertyKey = DependencyProperty.RegisterReadOnly("Chits", typeof(IList<ProductionChit>), typeof(Tile), new FrameworkPropertyMetadata(new ArrayList<ProductionChit>()));
-            Tile.ChitsProperty = Tile.ChitsPropertyKey.DependencyProperty;
+            Tile.Chits2PropertyKey = DependencyProperty.RegisterReadOnly("Chits2", typeof(IList<ProductionChit>), typeof(Tile), new FrameworkPropertyMetadata(new ArrayList<ProductionChit>()));
+            Tile.Chits2Property = Tile.Chits2PropertyKey.DependencyProperty;
             Tile.HexTileProperty = DependencyProperty.Register("HexTile", typeof(HexTile), typeof(Tile), new FrameworkPropertyMetadata(new EmptyHexTile(), FrameworkPropertyMetadataOptions.AffectsRender, new PropertyChangedCallback(OnHexTilePropertyChanged)));
             Tile.HexTileBackgroundProperty = DependencyProperty.Register("HexTileBackground", typeof(Brush), typeof(Tile), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender));
         }
+
+        public IList<ProductionChit> Chits = new ArrayList<ProductionChit>();
 
         public Tile(Gameboard gameboard, int X, int Y)
         {
             
             var lst = new ArrayList<ProductionChit>();
+            Chits.CollectionChanged += Chits_CollectionChanged;
             lst.CollectionChanged += new CollectionChangedHandler<ProductionChit>(Chits_CollectionChanged);
-            SetValue(Tile.ChitsPropertyKey, lst);
+            SetValue(Tile.Chits2PropertyKey, lst);
 
             this.X = X;
             this.Y = Y;
@@ -66,7 +69,13 @@ namespace xpdm.Catan.Controls
 
         void Chits_CollectionChanged(object sender)
         {
-            ChitSpace.Children.Clear();
+            ChitTest.Items.Clear();
+            foreach (var chit in Chits)
+            {
+                ChitTest.Items.Add(new Chit(chit));
+            }
+            ChitTest.InvalidateArrange();
+/*            ChitSpace.Children.Clear();
             var count = Chits.Count;
             Chit chit;
             switch (Chits.Count)
@@ -223,12 +232,12 @@ namespace xpdm.Catan.Controls
             //return back;
         }
 
-        private static readonly DependencyPropertyKey ChitsPropertyKey;
-        public static readonly DependencyProperty ChitsProperty;
+        private static readonly DependencyPropertyKey Chits2PropertyKey;
+        public static readonly DependencyProperty Chits2Property;
 
-        public IList<ProductionChit> Chits
+        public IList<ProductionChit> Chits2
         {
-            get { return (IList<ProductionChit>)GetValue(Tile.ChitsProperty); }
+            get { return (IList<ProductionChit>)GetValue(Tile.Chits2Property); }
         }
 
         public static readonly DependencyProperty HexTileProperty;

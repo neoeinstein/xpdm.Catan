@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.Contracts;
 using C5;
 using SCG = System.Collections.Generic;
 using System.Linq;
@@ -68,7 +69,7 @@ namespace xpdm.Catan
             hexRandom.AddAll(from hex in hexes orderby RNG.Next() select hex);
             foreach (var t in tiles)
             {
-                t.Chits.Clear();
+                t.Chits2.Clear();
                 var d1 = this.tiles[x1][y1].DistanceTo(t);
                 var d2 = this.tiles[x2][y2].DistanceTo(t);
                 if (d1 == maxd1 && d2 >= maxd2 + 1 || d1 >= maxd1 + 1 && d2 == maxd2 || d1 == maxd1 + 1 && d2 == maxd2 + 1)
@@ -199,10 +200,16 @@ namespace xpdm.Catan
             new PrintDialog().PrintVisual(View, "Settlers Board Game");
         }
 
+        /// <summary>
+        /// Test Summary
+        /// </summary>
+        /// <exception cref="NullReferenceException"/>
+        [Pure]
         public SCG.IEnumerable<Tile> AllTiles
         {
             get
             {
+                Contract.Ensures(Contract.Result<SCG.IEnumerable<Tile>>() != null);
                 return tiles.SelectMany(t => t);
             }
         }

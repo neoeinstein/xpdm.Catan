@@ -69,7 +69,7 @@ namespace xpdm.Catan.Core.Board
             get { return extendedChits; }
         }
 
-        private ProductionChit(int producesOn, string alphaOrder)
+        public ProductionChit(int producesOn, string alphaOrder)
         {
             if (producesOn > 12 || producesOn < 2)
                 throw new ArgumentOutOfRangeException("producesOn", producesOn, "Value is not possible on two six-sided dice.");

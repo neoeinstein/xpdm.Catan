@@ -29,7 +29,12 @@ namespace xpdm.Catan.Controls
         public ProductionChit ProductionChit
         {
             get;
-            private set;
+            set;
+        }
+
+        public Chit()
+        {
+            InitializeComponent();
         }
 
         public Chit(ProductionChit pc)
