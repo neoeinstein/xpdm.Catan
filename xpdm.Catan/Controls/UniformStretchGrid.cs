@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Diagnostics.Contracts;
 using C5;
 using SCG = System.Collections.Generic;
 using System.Linq;
@@ -147,11 +148,14 @@ namespace xpdm.Catan.Controls
             }
         }
 
-        protected void ArrangeItem(ItemContainer c, int majorPos, int minorPos, int majorSpan)
+        protected void ArrangeItem(ItemContainer c, int minorPos, int majorPos, int majorSpan)
         {
+            Contract.Requires<ArgumentOutOfRangeException>(minorPos >= 0);
+            Contract.Requires<ArgumentOutOfRangeException>(majorPos >= 0);
+            Contract.Requires<ArgumentOutOfRangeException>(majorSpan >= 1);
             c.SetValue((ChildrenFlow == Orientation.Horizontal ? Grid.ColumnSpanProperty : Grid.RowSpanProperty), majorSpan);
-            c.SetValue((ChildrenFlow != Orientation.Horizontal ? Grid.ColumnProperty : Grid.RowProperty), majorPos);
-            c.SetValue((ChildrenFlow == Orientation.Horizontal ? Grid.ColumnProperty : Grid.RowProperty), minorPos);
+            c.SetValue((ChildrenFlow != Orientation.Horizontal ? Grid.ColumnProperty : Grid.RowProperty), minorPos);
+            c.SetValue((ChildrenFlow == Orientation.Horizontal ? Grid.ColumnProperty : Grid.RowProperty), majorPos);
         }
 
         #region ChildrenFlow property
