@@ -102,7 +102,7 @@ namespace xpdm.Catan.Controls
 
             _childSize = hexRectBounds;
 
-            var cols = (Gameboard != null) ? Gameboard.Columns + 1 : 1;
+            var cols = (Gameboard != null) ? Gameboard.Columns * 0.75 + 0.25 : 1;
             var rows = (Gameboard != null) ? Gameboard.Rows + 0.5 : 1;
 
             var resultSize = new Size(_childSize.Width * cols, _childSize.Height * rows);
