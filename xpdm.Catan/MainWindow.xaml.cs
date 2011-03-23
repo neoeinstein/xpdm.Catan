@@ -77,7 +77,6 @@ namespace xpdm.Catan
             hexRandom.AddAll(from hex in hexes orderby RNG.Next() select hex);
             foreach (var t in tiles)
             {
-                t.Chits.Clear();
                 var d1 = this.tiles[x1][y1].DistanceTo(t);
                 var d2 = this.tiles[x2][y2].DistanceTo(t);
                 if (d1 == maxd1 && d2 >= maxd2 + 1 || d1 >= maxd1 + 1 && d2 == maxd2 || d1 == maxd1 + 1 && d2 == maxd2 + 1)
@@ -104,6 +103,8 @@ namespace xpdm.Catan
 
         private void RandomChitLayout(SCG.IEnumerable<Tile> tiles, SCG.IEnumerable<ProductionChit> chits)
         {
+            foreach (var t in AllTiles) t.Chits.Clear();
+
             IList<ProductionChit> chitRandom = new ArrayList<ProductionChit>();
             chitRandom.AddAll(from chit in chits orderby RNG.Next() select chit);
             foreach (Tile h in (from t in tiles where t.HexTile != null && t.HexTile.IsLand && t.HexTile.TileType != Core.TileType.Desert select t))
@@ -112,23 +113,55 @@ namespace xpdm.Catan
             }
         }
 
+        private SCG.IEnumerable<ProductionChit> GetChitGroup()
+        {
+            switch(LayoutComboBox.SelectedIndex)
+            {
+                case 1:
+                    return ProductionChit.ExtendedChits;
+                case 2:
+                    return ProductionChit.DefaultChits.Where(c => c.AlphaOrder != "H").Take(14);
+                default:
+                    return ProductionChit.DefaultChits;
+            }
+        }
+
         private void DefaultRandomLayout()
         {
             RandomBoardLayout(AllTiles, HexTile.DefaultTiles, 4, 3, 2);
-            RandomChitLayout(AllTiles, ProductionChit.DefaultChits);
         }
 
         private void ExtendedRandomLayout()
         {
             RandomBoardLayout(AllTiles, HexTile.ExtendedTiles, 4, 3, 4, 4, 3, 3);
-            RandomChitLayout(AllTiles, ProductionChit.ExtendedChits);
         }
 
         private void TwoPlayerRandomLayout()
         {
             RandomBoardLayout(AllTiles, HexTile.TwoPlayerTiles, 4, 2, 4, 3, 2, 2);
-            RandomChitLayout(AllTiles, ProductionChit.DefaultChits.Where(c => c.AlphaOrder != "H").Take(14));
-            AllTiles.First(t => t.Chits.Any(c => c.AlphaOrder == "B")).Chits.Add(ProductionChit.DefaultChits.First(c => c.AlphaOrder == "H"));
+        }
+
+        private static void ExchangeChits(Tile a, Tile b)
+        {
+            Trace.TraceInformation("Exchanging chits: ({0},{1}:{{{2}}}), ({3},{4}:{{{5}}})",
+                b.X, b.Y, string.Join(",", from c in b.Chits select c.ProducesOn),
+                a.X, a.Y, string.Join(",", from c in a.Chits select c.ProducesOn));
+
+            var temp = a.Chits.ToArray();
+            a.Chits.Clear();
+            foreach (var c in b.Chits)
+            {
+                a.Chits.Add(c);
+            }
+            b.Chits.Clear();
+            foreach (var c in temp)
+            {
+                b.Chits.Add(c);
+            }
+
+            Trace.TraceInformation("Exchanged chits: ({0},{1}:{{{2}}}), ({3},{4}:{{{5}}})",
+                b.X, b.Y, string.Join(",", from c in b.Chits select c.ProducesOn),
+                a.X, a.Y, string.Join(",", from c in a.Chits select c.ProducesOn));
         }
 
         private void EnforceCommonChitRule()
@@ -139,12 +172,12 @@ namespace xpdm.Catan
                 Trace.Indent();
                 var commonTiles = from tile in AllTiles where tile.Chits.Any(c => c.IsCommon) select tile;
                 var commonLimit = commonTiles.Count();
-                var tooClose = (from tile1 in commonTiles from tile2 in commonTiles where tile1.DistanceTo(tile2) == 1 select new { Tile1 = tile1, Tile2 = tile2 }).FirstOrDefault();
+                var tooClose = (from tile1 in commonTiles from tile2 in commonTiles where tile1.DistanceTo(tile2) == 1 orderby RNG.Next() select new { Tile1 = tile1, Tile2 = tile2 }).FirstOrDefault();
                 while (tooClose != null && commonLimit > 0)
                 {
-                    Trace.TraceInformation("Found common chits too close together: ({0},{1}:{2}), ({3},{4}:{5})",
-                        tooClose.Tile1.X, tooClose.Tile1.Y, tooClose.Tile1.Chits.First().ProducesOn,
-                        tooClose.Tile2.X, tooClose.Tile2.Y, tooClose.Tile2.Chits.First().ProducesOn);
+                    Trace.TraceInformation("Found common chits too close together: ({0},{1}:{{{2}}}), ({3},{4}:{{{5}}})",
+                        tooClose.Tile1.X, tooClose.Tile1.Y, string.Join(",", from c in tooClose.Tile1.Chits select c.ProducesOn),
+                        tooClose.Tile2.X, tooClose.Tile2.Y, string.Join(",", from c in tooClose.Tile2.Chits select c.ProducesOn));
                     var targetLocation = (from tile in AllTiles where commonTiles.All(t => t.DistanceTo(tile) > 1) && tile.Chits.Count != 0 orderby RNG.Next() select tile).FirstOrDefault();
                     try
                     {
@@ -154,26 +187,13 @@ namespace xpdm.Catan
                             Trace.TraceWarning("Unable to find valid exchange location. Stopping.");
                             break;
                         }
+
                         var distances = (from tile in commonTiles select tile.DistanceTo(targetLocation)).ToArray();
-                        Trace.TraceInformation("Will exchange with ({0},{1}:{2}) Distances: ({3})",
-                            targetLocation.X, targetLocation.Y, targetLocation.Chits.First().ProducesOn,
+                        Trace.TraceInformation("Will exchange with ({0},{1}:{{{2}}}) Distances: ({3})",
+                            targetLocation.X, targetLocation.Y, string.Join(",", from c in targetLocation.Chits select c.ProducesOn),
                             string.Join(",", distances));
-                        var temp = targetLocation.Chits.ToArray();
-                        targetLocation.Chits.Clear();
-                        foreach (var c in tooClose.Tile1.Chits)
-                        {
-                            targetLocation.Chits.Add(c);
-                        }
-                        //targetLocation.Chits.AddAll(tooClose.Tile1.Chits);
-                        tooClose.Tile1.Chits.Clear();
-                        foreach (var c in temp)
-                        {
-                            tooClose.Tile1.Chits.Add(c);
-                        }
-                        //tooClose.Tile1.Chits.AddAll(temp);
-                        Trace.TraceInformation("Exchanged chits: ({0},{1}:{2}), ({3},{4}:{5})",
-                            tooClose.Tile1.X, tooClose.Tile1.Y, tooClose.Tile1.Chits.First().ProducesOn,
-                            targetLocation.X, targetLocation.Y, targetLocation.Chits.First().ProducesOn);
+                        ExchangeChits(tooClose.Tile1, targetLocation);
+
                         commonLimit--;
                         tooClose = (from tile1 in commonTiles from tile2 in commonTiles where tile1.DistanceTo(tile2) == 1 select new { Tile1 = tile1, Tile2 = tile2 }).FirstOrDefault();
                     }
@@ -192,6 +212,37 @@ namespace xpdm.Catan
                 Trace.Unindent();
             }
             Trace.TraceInformation("Done Enforcing Chit Rule");
+        }
+
+        private bool EnsureDesertHasNoChits()
+        {
+            var didExchange = false;
+            Trace.TraceInformation("Ensuring Deserts have no chits");
+            try
+            {
+                Trace.Indent();
+                var desertTilesWithChits = from tile in AllTiles where tile.Chits.Count > 0 && tile.HexTile.TileType == TileType.Desert select tile;
+                foreach (var t in desertTilesWithChits)
+                {
+                    var randomNonChittedTile = (from tile in AllTiles where tile.Chits.Count == 0 && tile.HexTile != null && tile.HexTile.IsLand && tile.HexTile.TileType != TileType.Desert orderby RNG.Next() select tile).FirstOrDefault();
+                    if (randomNonChittedTile != null)
+                    {
+                        ExchangeChits(randomNonChittedTile, t);
+                        didExchange = true;
+                    }
+                    else
+                    {
+                        Trace.TraceWarning("Unable to find chitted non-desert. Abandoning.");
+                        break;
+                    }
+                }
+            }
+            finally
+            {
+                Trace.Unindent();
+            }
+            Trace.TraceInformation("Done Enforcing Chit Rule");
+            return didExchange;
         }
         
         public override void OnApplyTemplate()
@@ -246,43 +297,90 @@ namespace xpdm.Catan
             set { SetValue(MainWindow.EnforceChitRuleProperty, value); }
         }
 
-        private void ReLayout()
+        private void ReLayout(bool tiles, bool chits)
         {
-            switch (LayoutComboBox.SelectedIndex)
+            if (!this.IsLoaded)
+                return;
+
+            if (tiles)
             {
-                case 1:
-                    ExtendedRandomLayout();
-                    break;
-                case 2:
-                    TwoPlayerRandomLayout();
-                    break;
-                default:
-                    DefaultRandomLayout();
-                    break;
+                if (TilePlacementComboBox.SelectedIndex == 0)
+                {
+                    switch (LayoutComboBox.SelectedIndex)
+                    {
+                        case 1:
+                            ExtendedRandomLayout();
+                            break;
+                        case 2:
+                            TwoPlayerRandomLayout();
+                            break;
+                        default:
+                            DefaultRandomLayout();
+                            break;
+                    }
+                    if (!chits)
+                    {
+                        if (EnsureDesertHasNoChits() && EnforceChitRule == true)
+                        {
+                            EnforceCommonChitRule();
+                        }
+                    }
+                }
             }
-            if (EnforceChitRule == true)
+            if (chits)
             {
-                EnforceCommonChitRule();
+                switch (ChitPlacementComboBox.SelectedIndex)
+                {
+                    case 1:
+                        return;
+                    default:
+                        RandomChitLayout(AllTiles, GetChitGroup());
+                        break;
+                }
+                if (LayoutComboBox.SelectedIndex == 2)
+                {
+                    AllTiles.First(t => t.Chits.Any(c => c.AlphaOrder == "B")).Chits.Add(ProductionChit.DefaultChits.First(c => c.AlphaOrder == "H"));
+                }
+                if (EnforceChitRule == true)
+                {
+                    EnforceCommonChitRule();
+                }
             }
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
+        private void ShuffleTilesClicked(object sender, RoutedEventArgs e)
         {
-            ReLayout();
+            ReLayout(true, false);
+        }
+        private void ShuffleChitsClicked(object sender, RoutedEventArgs e)
+        {
+            ReLayout(false, true);
+        }
+        private void ShuffleBothClicked(object sender, RoutedEventArgs e)
+        {
+            ReLayout(true, true);
         }
 
         private void LayoutComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count > 0)
             {
-                ReLayout();
+                ReLayout(true, true);
             }
         }
         private void ChitComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (e.AddedItems.Count > 0)
+            {
+                //ReLayout(false, true);
+            }
         }
         private void TileComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (e.AddedItems.Count > 0)
+            {
+                //ReLayout(true, false);
+            }
         }
 
         private void SkinComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -311,6 +409,11 @@ namespace xpdm.Catan
                     }
                 }
             }
+        }
+
+        private void Self_Loaded(object sender, RoutedEventArgs e)
+        {
+            ReLayout(true, true);
         }
     }
 }

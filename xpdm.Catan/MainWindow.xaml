@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:xpdm.Catan.Controls"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
-        Title="Settlers of Catan Board Designer" Height="720" Width="1080" x:ClassModifier="internal" Name="Self">
+        Title="Settlers of Catan Board Designer" Height="720" Width="1080" x:ClassModifier="internal" Name="Self" Loaded="Self_Loaded">
     <Window.Resources>
         <ResourceDictionary Source="Resources.xaml"/>
     </Window.Resources>
@@ -12,37 +12,115 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="300"/>
         </Grid.ColumnDefinitions>
-        <ScrollViewer x:Name="View" Grid.Column="0">
+        <ScrollViewer x:Name="View" Grid.Column="0" VerticalScrollBarVisibility="Auto">
             <Viewbox Stretch="UniformToFill">
                 <!--Grid Name="TileLayer" Margin="12,12,12,12" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Collapsed"/-->
                 <local:HexagonalGrid x:Name="TheGrid" Margin="12" HorizontalAlignment="Left" VerticalAlignment="Top" GridEdgeLength="128"/>
             </Viewbox>
         </ScrollViewer>
         <StackPanel Grid.Column="1" Margin="20">
-            <TextBlock>Select a layout:</TextBlock>
-            <ComboBox Name="LayoutComboBox" HorizontalAlignment="Left" SelectedIndex="0" SelectionChanged="LayoutComboBox_SelectionChanged">
-                <ComboBoxItem>Standard</ComboBoxItem>
-                <ComboBoxItem>5-6 Player</ComboBoxItem>
-                <ComboBoxItem>2 Player</ComboBoxItem>
-            </ComboBox>
-            <TextBlock>Tile Placement Method:</TextBlock>
-            <ComboBox HorizontalAlignment="Left" SelectedIndex="0" SelectionChanged="TileComboBox_SelectionChanged">
-                <ComboBoxItem>Starter</ComboBoxItem>
-                <ComboBoxItem>Default</ComboBoxItem>
-            </ComboBox>
-            <TextBlock>Chit Placement Method:</TextBlock>
-            <ComboBox HorizontalAlignment="Left" SelectedIndex="0" SelectionChanged="ChitComboBox_SelectionChanged">
-                <ComboBoxItem>Random</ComboBoxItem>
-                <ComboBoxItem>Default</ComboBoxItem>
-            </ComboBox>
-            <CheckBox Content="Enforce Common Chit Constraint" Name="EnforceChitRuleCheckBox" IsChecked="{Binding ElementName=Self, Path=EnforceChitRule}"/>
+            <GroupBox Header="Board Options">
+                <Grid>
+                    <Rectangle Grid.Column="1" Height="50" Width="50" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,-4,-4,0">
+                        <Rectangle.Fill>
+                            <VisualBrush Visual="{Binding ElementName=TheGrid}" Stretch="Uniform" />
+                        </Rectangle.Fill>
+                        <Rectangle.OpacityMask>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Color="Black" Offset="0"/>
+                                <GradientStop Color="LightGray" Offset="0"/>
+                                <GradientStop Color="Transparent" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <StackPanel>
+                        <WrapPanel Margin="0,5">
+                            <TextBlock VerticalAlignment="Center">Select a layout:</TextBlock>
+                            <ComboBox Name="LayoutComboBox" Margin="5" HorizontalAlignment="Left" SelectedIndex="0" SelectionChanged="LayoutComboBox_SelectionChanged">
+                                <ComboBoxItem>Standard</ComboBoxItem>
+                                <ComboBoxItem>5-6 Player</ComboBoxItem>
+                                <ComboBoxItem>2 Player</ComboBoxItem>
+                            </ComboBox>
+                        </WrapPanel>
+                        <WrapPanel Margin="0,5">
+                            <TextBlock VerticalAlignment="Center">Tile Placement Method:</TextBlock>
+                            <ComboBox Name="TilePlacementComboBox" HorizontalAlignment="Left" Margin="5"  SelectedIndex="0" SelectionChanged="TileComboBox_SelectionChanged" SelectedValuePath="Content">
+                                <ComboBoxItem>Random</ComboBoxItem>
+                                <ComboBoxItem>Starter</ComboBoxItem>
+                            </ComboBox>
+                        </WrapPanel>
+                        <WrapPanel Margin="0,5">
+                            <TextBlock VerticalAlignment="Center">Chit Placement Method:</TextBlock>
+                            <ComboBox Name="ChitPlacementComboBox" Margin="5" HorizontalAlignment="Left" SelectedIndex="0" SelectionChanged="ChitComboBox_SelectionChanged" SelectedValuePath="Content">
+                                <ComboBoxItem>Random</ComboBoxItem>
+                                <ComboBoxItem>Default</ComboBoxItem>
+                            </ComboBox>
+                            <CheckBox Margin="5,0,5,5" Content="Enforce Common Chit Constraint" Name="EnforceChitRuleCheckBox" IsChecked="{Binding ElementName=Self, Path=EnforceChitRule}">
+                                <CheckBox.Style>
+                                    <Style TargetType="{x:Type CheckBox}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=ChitPlacementComboBox, Path=SelectedValue}" Value="Random">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </Style>
+                                </CheckBox.Style>
+                            </CheckBox>
+                        </WrapPanel>
+                        <WrapPanel HorizontalAlignment="Center">
+                            <Button Margin="5" Content="Shuffle Tiles" Click="ShuffleTilesClicked">
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=TilePlacementComboBox, Path=SelectedValue}" Value="Random">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            <Button Margin="5" Content="Shuffle Chits" Click="ShuffleChitsClicked">
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=ChitPlacementComboBox, Path=SelectedValue}" Value="Random">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            <Button Margin="5" Content="Shuffle Both" Click="ShuffleBothClicked">
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+                                        <Style.Triggers>
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding ElementName=TilePlacementComboBox, Path=SelectedValue}" Value="Random"/>
+                                                    <Condition Binding="{Binding ElementName=ChitPlacementComboBox, Path=SelectedValue}" Value="Random"/>
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="Button.Visibility" Value="Visible"/>
+                                            </MultiDataTrigger>
+                                        </Style.Triggers>
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </WrapPanel>
+                    </StackPanel>
+                  </Grid>
+                </GroupBox>
+            <StackPanel>
             <WrapPanel Margin="0,5">
-                <TextBlock>Skin:</TextBlock>
-                <ComboBox x:Name="SkinList"  Margin="5" HorizontalAlignment="Left" SelectedIndex="0" SelectionChanged="SkinComboBox_SelectionChanged">
-                    <ComboBoxItem>Default</ComboBoxItem>
-                </ComboBox>
-            </WrapPanel>
-            <Button Content="Toggle Layout" Height="23" Name="button1" Width="85" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="12,12" Click="button1_Click"/>
+                        <TextBlock VerticalAlignment="Center">Skin:</TextBlock>
+                        <ComboBox x:Name="SkinList"  Margin="5" HorizontalAlignment="Left" SelectedIndex="0" SelectionChanged="SkinComboBox_SelectionChanged">
+                            <ComboBoxItem>Default</ComboBoxItem>
+                        </ComboBox>
+                    </WrapPanel>
+                </StackPanel>
         </StackPanel>
     </Grid>
 </Window>
