@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:xpdm.Catan.Controls"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
-        Title="Settlers of Catan Board Designer" Height="720" Width="1080" x:ClassModifier="internal" Name="Self" Loaded="Self_Loaded">
+        Title="Settlers of Catan Board Designer" Height="600" Width="1024" x:ClassModifier="internal" Name="Self" Loaded="Self_Loaded">
     <Window.Resources>
         <ResourceDictionary Source="Resources.xaml"/>
     </Window.Resources>
