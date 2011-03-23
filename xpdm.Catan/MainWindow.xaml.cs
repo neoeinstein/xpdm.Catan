@@ -241,7 +241,7 @@ namespace xpdm.Catan
             {
                 Trace.Unindent();
             }
-            Trace.TraceInformation("Done Enforcing Chit Rule");
+            Trace.TraceInformation("Ensured Deserts have no chits");
             return didExchange;
         }
         
