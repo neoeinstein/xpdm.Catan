@@ -14,7 +14,6 @@
         </Grid.ColumnDefinitions>
         <ScrollViewer x:Name="View" Grid.Column="0" VerticalScrollBarVisibility="Auto">
             <Viewbox Stretch="UniformToFill">
-                <!--Grid Name="TileLayer" Margin="12,12,12,12" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Collapsed"/-->
                 <local:HexagonalGrid x:Name="TheGrid" Margin="12" HorizontalAlignment="Left" VerticalAlignment="Top" GridEdgeLength="128"/>
             </Viewbox>
         </ScrollViewer>
@@ -111,16 +110,16 @@
                             </Button>
                         </WrapPanel>
                     </StackPanel>
-                  </Grid>
-                </GroupBox>
+                </Grid>
+            </GroupBox>
             <StackPanel>
-            <WrapPanel Margin="0,5">
-                        <TextBlock VerticalAlignment="Center">Skin:</TextBlock>
-                        <ComboBox x:Name="SkinList"  Margin="5" HorizontalAlignment="Left" SelectedIndex="0" SelectionChanged="SkinComboBox_SelectionChanged">
-                            <ComboBoxItem>Default</ComboBoxItem>
-                        </ComboBox>
-                    </WrapPanel>
-                </StackPanel>
+                <WrapPanel Margin="0,5">
+                    <TextBlock VerticalAlignment="Center">Skin:</TextBlock>
+                    <ComboBox x:Name="SkinList"  Margin="5" HorizontalAlignment="Left" SelectedIndex="0" SelectionChanged="SkinComboBox_SelectionChanged">
+                        <ComboBoxItem>Default</ComboBoxItem>
+                    </ComboBox>
+                </WrapPanel>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>
