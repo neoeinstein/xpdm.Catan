@@ -5,3 +5,4 @@ TestResults/
 *.user
 *.vs10x
 _ReSharper*
+Thumbs.db
