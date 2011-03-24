@@ -1,37 +1,37 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:control="clr-namespace:xpdm.Catan.Controls;assembly=xpdm.Catan">
-    <ImageBrush x:Key="BrickATileBackground" ImageSource="Images/Tiles/Brick.jpg" />
-    <ImageBrush x:Key="BrickBTileBackground" ImageSource="Images/Tiles/Brick.jpg" />
-    <ImageBrush x:Key="BrickCTileBackground" ImageSource="Images/Tiles/Brick.jpg" />
-    <ImageBrush x:Key="BrickDTileBackground" ImageSource="Images/Tiles/Brick.jpg" />
-    <ImageBrush x:Key="BrickETileBackground" ImageSource="Images/Tiles/Brick.jpg" />
-    <ImageBrush x:Key="OreATileBackground" ImageSource="Images/Tiles/Ore.jpg" />
-    <ImageBrush x:Key="OreBTileBackground" ImageSource="Images/Tiles/Ore.jpg" />
-    <ImageBrush x:Key="OreCTileBackground" ImageSource="Images/Tiles/Ore.jpg" />
-    <ImageBrush x:Key="OreDTileBackground" ImageSource="Images/Tiles/Ore.jpg" />
-    <ImageBrush x:Key="OreETileBackground" ImageSource="Images/Tiles/Ore.jpg" />
-    <ImageBrush x:Key="SheepATileBackground" ImageSource="Images/Tiles/Sheep.jpg" />
-    <ImageBrush x:Key="SheepBTileBackground" ImageSource="Images/Tiles/Sheep.jpg" />
-    <ImageBrush x:Key="SheepCTileBackground" ImageSource="Images/Tiles/Sheep.jpg" />
-    <ImageBrush x:Key="SheepDTileBackground" ImageSource="Images/Tiles/Sheep.jpg" />
-    <ImageBrush x:Key="SheepETileBackground" ImageSource="Images/Tiles/Sheep.jpg" />
-    <ImageBrush x:Key="SheepFTileBackground" ImageSource="Images/Tiles/Sheep.jpg" />
-    <ImageBrush x:Key="WheatATileBackground" ImageSource="Images/Tiles/Wheat.jpg" />
-    <ImageBrush x:Key="WheatBTileBackground" ImageSource="Images/Tiles/Wheat.jpg" />
-    <ImageBrush x:Key="WheatCTileBackground" ImageSource="Images/Tiles/Wheat.jpg" />
-    <ImageBrush x:Key="WheatDTileBackground" ImageSource="Images/Tiles/Wheat.jpg" />
-    <ImageBrush x:Key="WheatETileBackground" ImageSource="Images/Tiles/Wheat.jpg" />
-    <ImageBrush x:Key="WheatFTileBackground" ImageSource="Images/Tiles/Wheat.jpg" />
-    <ImageBrush x:Key="WoodATileBackground" ImageSource="Images/Tiles/Wood.jpg" />
-    <ImageBrush x:Key="WoodBTileBackground" ImageSource="Images/Tiles/Wood.jpg" />
-    <ImageBrush x:Key="WoodCTileBackground" ImageSource="Images/Tiles/Wood.jpg" />
-    <ImageBrush x:Key="WoodDTileBackground" ImageSource="Images/Tiles/Wood.jpg" />
-    <ImageBrush x:Key="WoodETileBackground" ImageSource="Images/Tiles/Wood.jpg" />
-    <ImageBrush x:Key="WoodFTileBackground" ImageSource="Images/Tiles/Wood.jpg" />
-    <ImageBrush x:Key="DesertATileBackground" ImageSource="Images/Tiles/Desert.jpg" />
-    <ImageBrush x:Key="DesertBTileBackground" ImageSource="Images/Tiles/Desert.jpg" />
-    <ImageBrush x:Key="OceanATileBackground" ImageSource="Images/Tiles/Ocean.jpg" />
+    <ImageBrush x:Key="BrickATileBackground" ImageSource="Images/Tiles/Brick.png" />
+    <ImageBrush x:Key="BrickBTileBackground" ImageSource="Images/Tiles/Brick.png" />
+    <ImageBrush x:Key="BrickCTileBackground" ImageSource="Images/Tiles/Brick.png" />
+    <ImageBrush x:Key="BrickDTileBackground" ImageSource="Images/Tiles/Brick.png" />
+    <ImageBrush x:Key="BrickETileBackground" ImageSource="Images/Tiles/Brick.png" />
+    <ImageBrush x:Key="OreATileBackground" ImageSource="Images/Tiles/Ore.png" />
+    <ImageBrush x:Key="OreBTileBackground" ImageSource="Images/Tiles/Ore.png" />
+    <ImageBrush x:Key="OreCTileBackground" ImageSource="Images/Tiles/Ore.png" />
+    <ImageBrush x:Key="OreDTileBackground" ImageSource="Images/Tiles/Ore.png" />
+    <ImageBrush x:Key="OreETileBackground" ImageSource="Images/Tiles/Ore.png" />
+    <ImageBrush x:Key="SheepATileBackground" ImageSource="Images/Tiles/Sheep.png" />
+    <ImageBrush x:Key="SheepBTileBackground" ImageSource="Images/Tiles/Sheep.png" />
+    <ImageBrush x:Key="SheepCTileBackground" ImageSource="Images/Tiles/Sheep.png" />
+    <ImageBrush x:Key="SheepDTileBackground" ImageSource="Images/Tiles/Sheep.png" />
+    <ImageBrush x:Key="SheepETileBackground" ImageSource="Images/Tiles/Sheep.png" />
+    <ImageBrush x:Key="SheepFTileBackground" ImageSource="Images/Tiles/Sheep.png" />
+    <ImageBrush x:Key="WheatATileBackground" ImageSource="Images/Tiles/Wheat.png" />
+    <ImageBrush x:Key="WheatBTileBackground" ImageSource="Images/Tiles/Wheat.png" />
+    <ImageBrush x:Key="WheatCTileBackground" ImageSource="Images/Tiles/Wheat.png" />
+    <ImageBrush x:Key="WheatDTileBackground" ImageSource="Images/Tiles/Wheat.png" />
+    <ImageBrush x:Key="WheatETileBackground" ImageSource="Images/Tiles/Wheat.png" />
+    <ImageBrush x:Key="WheatFTileBackground" ImageSource="Images/Tiles/Wheat.png" />
+    <ImageBrush x:Key="WoodATileBackground" ImageSource="Images/Tiles/Wood.png" />
+    <ImageBrush x:Key="WoodBTileBackground" ImageSource="Images/Tiles/Wood.png" />
+    <ImageBrush x:Key="WoodCTileBackground" ImageSource="Images/Tiles/Wood.png" />
+    <ImageBrush x:Key="WoodDTileBackground" ImageSource="Images/Tiles/Wood.png" />
+    <ImageBrush x:Key="WoodETileBackground" ImageSource="Images/Tiles/Wood.png" />
+    <ImageBrush x:Key="WoodFTileBackground" ImageSource="Images/Tiles/Wood.png" />
+    <ImageBrush x:Key="DesertATileBackground" ImageSource="Images/Tiles/Desert.png" />
+    <ImageBrush x:Key="DesertBTileBackground" ImageSource="Images/Tiles/Desert.png" />
+    <ImageBrush x:Key="OceanATileBackground" ImageSource="Images/Tiles/Ocean.png" />
     <SolidColorBrush x:Key="CatanBlank" Color="#1C1B1A" />
     <FontFamily x:Key="GameBoardTextFont">nevis</FontFamily>
     <SolidColorBrush x:Key="ProductionChitTextCommon" Color="#F7941E" />

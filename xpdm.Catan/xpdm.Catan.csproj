@@ -223,6 +223,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Content Include="Skins\RyanSchenk2010\Images\Tiles\Brick.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\RyanSchenk2010\Images\Tiles\Desert.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\RyanSchenk2010\Images\Tiles\Ocean.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\RyanSchenk2010\Images\Tiles\Ore.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\RyanSchenk2010\Images\Tiles\Sheep.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\RyanSchenk2010\Images\Tiles\Wheat.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\RyanSchenk2010\Images\Tiles\Wood.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Skins\RyanSchenk2010\Style.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -346,27 +367,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Skins\FourthEditionCore\Images\Tiles\WoodF.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\RyanSchenk2010\Images\Tiles\Brick.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\RyanSchenk2010\Images\Tiles\Desert.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\RyanSchenk2010\Images\Tiles\Ocean.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\RyanSchenk2010\Images\Tiles\Ore.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\RyanSchenk2010\Images\Tiles\Sheep.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\RyanSchenk2010\Images\Tiles\Wheat.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Skins\RyanSchenk2010\Images\Tiles\Wood.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
