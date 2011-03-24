@@ -1,0 +1,89 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:control="clr-namespace:xpdm.Catan.Controls;assembly=xpdm.Catan">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Images/Tiles/Brick.xaml"/>
+        <ResourceDictionary Source="Images/Tiles/Ore.xaml"/>
+        <ResourceDictionary Source="Images/Tiles/Sheep.xaml"/>
+        <ResourceDictionary Source="Images/Tiles/Wheat.xaml"/>
+        <ResourceDictionary Source="Images/Tiles/Wood.xaml"/>
+        <ResourceDictionary Source="Images/Tiles/Desert.xaml"/>
+        <ResourceDictionary Source="Images/Tiles/Ocean.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    <VisualBrush x:Key="BrickATileBackground" Visual="{StaticResource BrickCanvas}" />
+    <VisualBrush x:Key="BrickBTileBackground" Visual="{StaticResource BrickCanvas}" />
+    <VisualBrush x:Key="BrickCTileBackground" Visual="{StaticResource BrickCanvas}" />
+    <VisualBrush x:Key="BrickDTileBackground" Visual="{StaticResource BrickCanvas}" />
+    <VisualBrush x:Key="BrickETileBackground" Visual="{StaticResource BrickCanvas}" />
+    <VisualBrush x:Key="OreATileBackground" Visual="{StaticResource OreCanvas}" />
+    <VisualBrush x:Key="OreBTileBackground" Visual="{StaticResource OreCanvas}" />
+    <VisualBrush x:Key="OreCTileBackground" Visual="{StaticResource OreCanvas}" />
+    <VisualBrush x:Key="OreDTileBackground" Visual="{StaticResource OreCanvas}" />
+    <VisualBrush x:Key="OreETileBackground" Visual="{StaticResource OreCanvas}" />
+    <VisualBrush x:Key="SheepATileBackground" Visual="{StaticResource SheepCanvas}" />
+    <VisualBrush x:Key="SheepBTileBackground" Visual="{StaticResource SheepCanvas}" />
+    <VisualBrush x:Key="SheepCTileBackground" Visual="{StaticResource SheepCanvas}" />
+    <VisualBrush x:Key="SheepDTileBackground" Visual="{StaticResource SheepCanvas}" />
+    <VisualBrush x:Key="SheepETileBackground" Visual="{StaticResource SheepCanvas}" />
+    <VisualBrush x:Key="SheepFTileBackground" Visual="{StaticResource SheepCanvas}" />
+    <VisualBrush x:Key="WheatATileBackground" Visual="{StaticResource WheatCanvas}" />
+    <VisualBrush x:Key="WheatBTileBackground" Visual="{StaticResource WheatCanvas}" />
+    <VisualBrush x:Key="WheatCTileBackground" Visual="{StaticResource WheatCanvas}" />
+    <VisualBrush x:Key="WheatDTileBackground" Visual="{StaticResource WheatCanvas}" />
+    <VisualBrush x:Key="WheatETileBackground" Visual="{StaticResource WheatCanvas}" />
+    <VisualBrush x:Key="WheatFTileBackground" Visual="{StaticResource WheatCanvas}" />
+    <VisualBrush x:Key="WoodATileBackground" Visual="{StaticResource WoodCanvas}" />
+    <VisualBrush x:Key="WoodBTileBackground" Visual="{StaticResource WoodCanvas}" />
+    <VisualBrush x:Key="WoodCTileBackground" Visual="{StaticResource WoodCanvas}" />
+    <VisualBrush x:Key="WoodDTileBackground" Visual="{StaticResource WoodCanvas}" />
+    <VisualBrush x:Key="WoodETileBackground" Visual="{StaticResource WoodCanvas}" />
+    <VisualBrush x:Key="WoodFTileBackground" Visual="{StaticResource WoodCanvas}" />
+    <VisualBrush x:Key="DesertATileBackground" Visual="{StaticResource DesertCanvas}" />
+    <VisualBrush x:Key="DesertBTileBackground" Visual="{StaticResource DesertCanvas}" />
+    <VisualBrush x:Key="OceanATileBackground" Visual="{StaticResource OceanCanvas}" />
+    <SolidColorBrush x:Key="CatanBlank" Color="#1C1B1A" />
+    <FontFamily x:Key="GameBoardTextFont">nevis</FontFamily>
+    <SolidColorBrush x:Key="ProductionChitTextCommon" Color="#F7941E" />
+    <!--SolidColorBrush x:Key="CatanBlank" Color="Bisque"/-->
+    <Style x:Key="GameBoardText">
+        <Setter Property="TextBlock.FontFamily" Value="{StaticResource GameBoardTextFont}" />
+        <Setter Property="TextBlock.Foreground" Value="White" />
+    </Style>
+    <Style x:Key="ProductionChitText" BasedOn="{StaticResource GameBoardText}">
+        <Style.Triggers>
+            <Trigger Property="control:Chit.IsCommon" Value="true">
+                <Setter Property="TextBlock.Foreground" Value="{DynamicResource ProductionChitTextCommon}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="ProductionChitAlpha" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ProductionChitText}">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Margin" Value="0,4,0,0"/>
+    </Style>
+    <Style x:Key="ProductionChitProducesOn" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ProductionChitText}">
+        <Setter Property="FontSize" Value="36"/>
+        <Setter Property="Margin" Value="0,2,0,0"/>
+    </Style>
+    <Style x:Key="ProductionChitPips" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource ProductionChitText}">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Margin" Value="0,0,0,6"/>
+    </Style>
+    <Style x:Key="ProductionChitBack">
+        <Setter Property="Shape.Fill" Value="{StaticResource CatanBlank}"/>
+        <Setter Property="Shape.BitmapEffect">
+            <Setter.Value>
+                <DropShadowBitmapEffect ShadowDepth="2"/>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="control:Chit.IsCommon" Value="true">
+                <Setter Property="Shape.Fill" Value="#662d91" />
+                <Setter Property="Shape.BitmapEffect">
+                    <Setter.Value>
+                        <DropShadowBitmapEffect Color="Blue" ShadowDepth="0" Softness="10"/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>
