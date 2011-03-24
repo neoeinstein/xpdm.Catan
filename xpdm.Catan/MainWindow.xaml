@@ -119,6 +119,7 @@
                         <ComboBoxItem>Default</ComboBoxItem>
                     </ComboBox>
                 </WrapPanel>
+                <Button Name="PrintBoard" Margin="5" HorizontalAlignment="Right" Content="Print Board" Click="PrintBoard_Click"/>
             </StackPanel>
         </StackPanel>
     </Grid>

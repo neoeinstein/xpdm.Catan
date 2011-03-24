@@ -262,9 +262,33 @@ namespace xpdm.Catan
             }
         }
         
-        private void PrintCanvas()
+        private void PrintElement(Visual visual)
         {
-            new PrintDialog().PrintVisual(View, "Settlers Board Game");
+            PrintDialog printDlg = new System.Windows.Controls.PrintDialog();
+            if (printDlg.ShowDialog() == true)
+            {
+                //get selected printer capabilities
+                System.Printing.PrintCapabilities capabilities = printDlg.PrintQueue.GetPrintCapabilities(printDlg.PrintTicket);
+
+                //get the size of the printer page
+                Size sz = new Size(capabilities.PageImageableArea.ExtentWidth, capabilities.PageImageableArea.ExtentHeight);
+
+                VisualBrush b = new VisualBrush(visual)
+                {
+                    Stretch = Stretch.Uniform,
+                    AlignmentX = AlignmentX.Center,
+                    AlignmentY = AlignmentY.Center,
+                };
+
+                Canvas c = new Canvas
+                {
+                    Height = sz.Height,
+                    Width = sz.Width,
+                    Background = b,
+                };
+
+                printDlg.PrintVisual(c, "Settlers Board Designer");
+            }
         }
 
         /// <summary>
@@ -414,6 +438,11 @@ namespace xpdm.Catan
         private void Self_Loaded(object sender, RoutedEventArgs e)
         {
             ReLayout(true, true);
+        }
+
+        private void PrintBoard_Click(object sender, RoutedEventArgs e)
+        {
+            PrintElement(TheGrid);
         }
     }
 }
