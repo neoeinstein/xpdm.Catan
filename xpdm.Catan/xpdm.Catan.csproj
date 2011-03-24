@@ -28,10 +28,14 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://delivery.xpdm.us/Programming/Catan/</InstallUrl>
+    <TargetCulture>en-US</TargetCulture>
+    <ProductName>Manager of Catan</ProductName>
+    <PublisherName>xallaraparadigm Design</PublisherName>
+    <SuiteName>xpdm</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>17</ApplicationRevision>
+    <ApplicationRevision>19</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
