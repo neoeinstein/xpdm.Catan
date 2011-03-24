@@ -113,14 +113,15 @@
                     </StackPanel>
                   </Grid>
                 </GroupBox>
-            <StackPanel>
-            <WrapPanel Margin="0,5">
+                <StackPanel>
+                    <WrapPanel Margin="0,5">
                         <TextBlock VerticalAlignment="Center">Skin:</TextBlock>
                         <ComboBox x:Name="SkinList"  Margin="5" HorizontalAlignment="Left" SelectedIndex="0" SelectionChanged="SkinComboBox_SelectionChanged">
                             <ComboBoxItem>Default</ComboBoxItem>
                         </ComboBox>
                     </WrapPanel>
-                </StackPanel>
+                <Button Name="PrintBoard" Margin="5" HorizontalAlignment="Right" Content="Print Board" Click="PrintBoard_Click"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>
