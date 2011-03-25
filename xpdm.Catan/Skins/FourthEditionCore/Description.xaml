@@ -3,30 +3,21 @@
                       xmlns:sys="clr-namespace:System;assembly=mscorlib"
                       xmlns:control="clr-namespace:xpdm.Catan.Controls;assembly=xpdm.Catan"
                       xmlns:skin="clr-namespace:xpdm.Catan.Skins;assembly=xpdm.Catan"
-                      DisplayName="Ryan Schenk Settlers Tiles (Vector)">
+                      DisplayName="Fourth Edition Core">
     <skin:SkinDescription.Description>
-        <sys:String>A collection of high-contrast and visually distinct tiles that also work well when printed in grayscale or viewed by the colorblind.</sys:String>
+        <sys:String>The real thing by the real Catan. Includes tiles from "The Settlers of Catan" and "The Seafarers of Catan" and their 5-6 player extensions.</sys:String>
     </skin:SkinDescription.Description>
     <skin:SkinDescription.Preview>
         <Canvas>
             <Canvas.Resources>
                 <ResourceDictionary>
-                    <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="Images/Tiles/Brick.xaml"/>
-                        <ResourceDictionary Source="Images/Tiles/Ore.xaml"/>
-                        <ResourceDictionary Source="Images/Tiles/Sheep.xaml"/>
-                        <ResourceDictionary Source="Images/Tiles/Wheat.xaml"/>
-                        <ResourceDictionary Source="Images/Tiles/Wood.xaml"/>
-                        <ResourceDictionary Source="Images/Tiles/Desert.xaml"/>
-                        <ResourceDictionary Source="Images/Tiles/Ocean.xaml"/>
-                    </ResourceDictionary.MergedDictionaries>
-                    <VisualBrush x:Key="Brick" Visual="{StaticResource BrickCanvas}" />
-                    <VisualBrush x:Key="Ore" Visual="{StaticResource OreCanvas}" />
-                    <VisualBrush x:Key="Sheep" Visual="{StaticResource SheepCanvas}" />
-                    <VisualBrush x:Key="Wheat" Visual="{StaticResource WheatCanvas}" />
-                    <VisualBrush x:Key="Wood" Visual="{StaticResource WoodCanvas}" />
-                    <VisualBrush x:Key="Ocean" Visual="{StaticResource OceanCanvas}" />
-                    <VisualBrush x:Key="Desert" Visual="{StaticResource DesertCanvas}" />
+                    <ImageBrush x:Key="Brick" ImageSource="Images/Tiles/BrickA.png" />
+                    <ImageBrush x:Key="Ore" ImageSource="Images/Tiles/OreA.png" />
+                    <ImageBrush x:Key="Sheep" ImageSource="Images/Tiles/SheepA.png" />
+                    <ImageBrush x:Key="Wheat" ImageSource="Images/Tiles/WheatA.png" />
+                    <ImageBrush x:Key="Wood" ImageSource="Images/Tiles/WoodA.png" />
+                    <ImageBrush x:Key="Ocean" ImageSource="Images/Tiles/OceanA.png" />
+                    <ImageBrush x:Key="Desert" ImageSource="Images/Tiles/DesertA.png" />
                 </ResourceDictionary>
             </Canvas.Resources>
             <control:HexagonalGrid GridEdgeLength="128" OffsetColumn="0" Columns="3" Rows="3">
@@ -41,12 +32,9 @@
         </Canvas>
     </skin:SkinDescription.Preview>
     <skin:SkinDescription.CopyrightNotice>
-        <sys:String>Copyright &#169; 2010 Ryan Schenk. Some rights reserved.</sys:String>
+        <sys:String>Copyright &#169; 2008 Catan GmbH. All rights reserved.</sys:String>
     </skin:SkinDescription.CopyrightNotice>
     <skin:SkinDescription.License>
-        <sys:String>CC-BY-NC-SA 3.0 Unported</sys:String>
+        <sys:String>Unlicensed!</sys:String>
     </skin:SkinDescription.License>
-    <skin:SkinDescription.LicenseUri>
-        <sys:String>http://creativecommons.org/licenses/by-nc-sa/3.0/</sys:String>
-    </skin:SkinDescription.LicenseUri>
 </skin:SkinDescription>

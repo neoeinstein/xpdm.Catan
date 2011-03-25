@@ -7,8 +7,14 @@ using System.Windows;
 
 namespace xpdm.Catan.Skins
 {
-    public class SkinDescription : FrameworkElement
+    public class SkinDescription
     {
+        public string Name
+        {
+            get;
+            set;
+        }
+
         public string DisplayName
         {
             get;
