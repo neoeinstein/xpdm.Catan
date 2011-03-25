@@ -328,6 +328,33 @@ namespace xpdm.Catan
                     Background = b,
                 };
 
+                var skinDescription = (SkinDescription)Application.Current.Properties["CurrentSkinDescription"];
+
+                var license = skinDescription.License;
+                if(!string.IsNullOrEmpty(license))
+                {
+                   license = "License: " + license;
+                }
+
+                var notice = string.Format("{0}\n{1}", skinDescription.CopyrightNotice, license).Trim();
+
+                if (!string.IsNullOrWhiteSpace(notice))
+                {
+                    var t = new TextBlock
+                    {
+                        Text = notice,
+                        FontSize = 8,
+                        Margin = new Thickness(5),
+                        HorizontalAlignment = HorizontalAlignment.Right,
+                        VerticalAlignment = VerticalAlignment.Bottom,
+                        TextAlignment = TextAlignment.Right,
+                    };
+
+                    Canvas.SetRight(t, 0);
+                    Canvas.SetBottom(t, 0);
+
+                    c.Children.Add(t);
+                }
                 printDlg.PrintVisual(c, "Settlers Board Designer");
             }
         }
@@ -473,6 +500,7 @@ namespace xpdm.Catan
                         Application.Current.Properties["CurrentSkin"] = newSkinDefinition;
                     }
                 }
+                Application.Current.Properties["CurrentSkinDescription"] = LoadSkinDescription(newSkinName) ?? LoadSkinDescription("Default");
             }
         }
 
