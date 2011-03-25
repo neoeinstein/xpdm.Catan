@@ -15,7 +15,7 @@ using xpdm.Catan.Core.Board;
 
 namespace xpdm.Catan.Controls
 {
-    class HexagonalGrid : Panel
+    public class HexagonalGrid : Panel
     {
         static HexagonalGrid()
         {
