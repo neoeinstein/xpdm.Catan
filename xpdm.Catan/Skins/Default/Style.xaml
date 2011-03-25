@@ -362,7 +362,7 @@
                 <TextBlock Text="{Binding Description}" Style="{DynamicResource SkinDescriptionTextStyle}"/>
                 <TextBlock Text="{Binding CopyrightNotice}" Style="{DynamicResource SkinCopyrightTextStyle}"/>
                 <TextBlock>
-                    <Hyperlink NavigateUri="{Binding LicenseUri}" Style="{DynamicResource SkinLicenseTextStyle}">
+                    <Hyperlink NavigateUri="{Binding LicenseUri}" ToolTip="{Binding LicenseUri}" Style="{DynamicResource SkinLicenseTextStyle}">
                         <TextBlock Text="{Binding License}"/>
                     </Hyperlink>
                 </TextBlock>
@@ -404,11 +404,13 @@
     <Style x:Key="SkinLicenseTextStyle" BasedOn="{StaticResource SkinComboBoxItemsStyle}">
         <Setter Property="TextBlock.FontSize" Value="8"/>
         <Setter Property="TextBlock.FontStyle" Value="Oblique"/>
-        <Setter Property="TextBlock.Foreground" Value="DarkGray"/>
+        <Setter Property="TextBlock.Foreground" Value="DarkSlateBlue"/>
         <Style.Triggers>
             <Trigger Property="Hyperlink.NavigateUri" Value="{x:Null}">
                 <Trigger.Setters>
                     <Setter Property="Hyperlink.IsEnabled" Value="false"/>
+                    <Setter Property="Hyperlink.ToolTip" Value="{x:Null}"/>
+                    <Setter Property="TextBlock.TextDecorations" Value="None" />
                 </Trigger.Setters>
             </Trigger>
         </Style.Triggers>
