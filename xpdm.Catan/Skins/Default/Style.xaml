@@ -336,6 +336,83 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    <DataTemplate x:Key="SkinComboBoxSelectionItemTemplate">
+        <StackPanel Orientation="Horizontal" Margin="2">
+            <Rectangle Stretch="Uniform" Height="20" Width="20">
+                <Rectangle.Fill>
+                    <VisualBrush Visual="{Binding Preview}"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <TextBlock Text="{Binding DisplayName}" Margin="5,0,0,0" />
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="SkinComboBoxItemTemplate">
+        <Grid Width="200" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+            <Rectangle Grid.Column="0" Stretch="Uniform">
+                <Rectangle.Fill>
+                    <VisualBrush Visual="{Binding Preview}"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <StackPanel Grid.Column="1" Margin="5,0,0,0">
+                <TextBlock Text="{Binding DisplayName}" Style="{DynamicResource SkinDisplayNameTextStyle}"/>
+                <TextBlock Text="{Binding Description}" Style="{DynamicResource SkinDescriptionTextStyle}"/>
+                <TextBlock Text="{Binding CopyrightNotice}" Style="{DynamicResource SkinCopyrightTextStyle}"/>
+                <TextBlock>
+                    <Hyperlink NavigateUri="{Binding LicenseUri}" Style="{DynamicResource SkinLicenseTextStyle}">
+                        <TextBlock Text="{Binding License}"/>
+                    </Hyperlink>
+                </TextBlock>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+    <Style x:Key="SkinComboBoxItemsStyle">
+        <Setter Property="TextBlock.FontFamily" Value="Helvetica"/>
+        <Setter Property="TextBlock.FontSize" Value="10"/>
+        <Setter Property="TextBlock.Foreground" Value="Black"/>
+        <Setter Property="Panel.Background" Value="White" />
+        <Style.Triggers>
+            <Trigger Property="ComboBoxItem.IsSelected" Value="True">
+                <Trigger.Setters>
+                    <Setter Property="Panel.Background" Value="DarkBlue" />
+                    <Setter Property="TextBlock.Foreground" Value="White" />
+                </Trigger.Setters>
+            </Trigger>
+            <Trigger Property="TextBlock.Text" Value="{x:Null}">
+                <Trigger.Setters>
+                    <Setter Property="TextBlock.Visibility" Value="Collapsed" />
+                </Trigger.Setters>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="SkinDisplayNameTextStyle" BasedOn="{StaticResource SkinComboBoxItemsStyle}">
+        <Setter Property="TextBlock.FontSize" Value="12"/>
+        <Setter Property="TextBlock.FontWeight" Value="Bold"/>
+    </Style>
+    <Style x:Key="SkinDescriptionTextStyle" BasedOn="{StaticResource SkinComboBoxItemsStyle}">
+        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+        <Setter Property="TextBlock.TextTrimming" Value="CharacterEllipsis" />
+    </Style>
+    <Style x:Key="SkinCopyrightTextStyle" BasedOn="{StaticResource SkinComboBoxItemsStyle}">
+        <Setter Property="TextBlock.FontSize" Value="9"/>
+        <Setter Property="TextBlock.Margin" Value="0,3,0,0"/>
+        <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+    </Style>
+    <Style x:Key="SkinLicenseTextStyle" BasedOn="{StaticResource SkinComboBoxItemsStyle}">
+        <Setter Property="TextBlock.FontSize" Value="8"/>
+        <Setter Property="TextBlock.FontStyle" Value="Oblique"/>
+        <Setter Property="TextBlock.Foreground" Value="DarkGray"/>
+        <Style.Triggers>
+            <Trigger Property="Hyperlink.NavigateUri" Value="{x:Null}">
+                <Trigger.Setters>
+                    <Setter Property="Hyperlink.IsEnabled" Value="false"/>
+                </Trigger.Setters>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
     <Style TargetType="control:Chit">
     </Style>
 </ResourceDictionary>
