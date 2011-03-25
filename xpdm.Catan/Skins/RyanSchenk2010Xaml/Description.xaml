@@ -40,6 +40,21 @@
             </control:HexagonalGrid>
         </Canvas>
     </skin:SkinDescription.Preview>
+    <skin:SkinDescription.SmallPreview>
+        <Canvas>
+            <Canvas.Resources>
+                <ResourceDictionary>
+                    <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="Images/Tiles/Wood.xaml"/>
+                    </ResourceDictionary.MergedDictionaries>
+                    <VisualBrush x:Key="Wood" Visual="{StaticResource WoodCanvas}" />
+                </ResourceDictionary>
+            </Canvas.Resources>
+            <control:HexagonalGrid GridEdgeLength="128" OffsetColumn="1" Columns="1" Rows="1">
+                <Canvas control:HexagonalGrid.Column="0" control:HexagonalGrid.Row="0" Background="{StaticResource Wood}"/>
+            </control:HexagonalGrid>
+        </Canvas>
+    </skin:SkinDescription.SmallPreview>
     <skin:SkinDescription.CopyrightNotice>
         <sys:String>Copyright &#169; 2010 Ryan Schenk. Some rights reserved.</sys:String>
     </skin:SkinDescription.CopyrightNotice>

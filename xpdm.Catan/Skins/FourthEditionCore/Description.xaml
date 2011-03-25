@@ -31,6 +31,18 @@
             </control:HexagonalGrid>
         </Canvas>
     </skin:SkinDescription.Preview>
+    <skin:SkinDescription.SmallPreview>
+        <Canvas>
+            <Canvas.Resources>
+                <ResourceDictionary>
+                    <ImageBrush x:Key="Ore" ImageSource="Images/Tiles/OreA.png" />
+                </ResourceDictionary>
+            </Canvas.Resources>
+            <control:HexagonalGrid GridEdgeLength="128" OffsetColumn="1" Columns="1" Rows="1">
+                <Canvas control:HexagonalGrid.Column="0" control:HexagonalGrid.Row="0" Background="{StaticResource Ore}"/>
+            </control:HexagonalGrid>
+        </Canvas>
+    </skin:SkinDescription.SmallPreview>
     <skin:SkinDescription.CopyrightNotice>
         <sys:String>Copyright &#169; 2008 Catan GmbH. All rights reserved.</sys:String>
     </skin:SkinDescription.CopyrightNotice>

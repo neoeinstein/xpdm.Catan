@@ -27,6 +27,12 @@ namespace xpdm.Catan.Skins
             set;
         }
 
+        public Visual SmallPreview
+        {
+            get;
+            set;
+        }
+
         public Visual Preview
         {
             get;
