@@ -70,17 +70,17 @@
     </Style>
     <Style x:Key="ProductionChitBack">
         <Setter Property="Shape.Fill" Value="{StaticResource CatanBlank}"/>
-        <Setter Property="Shape.BitmapEffect">
+        <Setter Property="Shape.Effect">
             <Setter.Value>
-                <DropShadowBitmapEffect ShadowDepth="2"/>
+                <DropShadowEffect ShadowDepth="2" Opacity="0.5"/>
             </Setter.Value>
         </Setter>
         <Style.Triggers>
             <Trigger Property="control:Chit.IsCommon" Value="true">
                 <Setter Property="Shape.Fill" Value="#662d91" />
-                <Setter Property="Shape.BitmapEffect">
+                <Setter Property="Shape.Effect">
                     <Setter.Value>
-                        <DropShadowBitmapEffect Color="Blue" ShadowDepth="0" Softness="10"/>
+                        <DropShadowEffect Color="Blue" ShadowDepth="0" Opacity="0.5" BlurRadius="10"/>
                     </Setter.Value>
                 </Setter>
             </Trigger>
