@@ -53,7 +53,6 @@ namespace xpdm.Catan
             }
 
             InitializeComponent();
-            this.TheGrid.Gameboard = board;
             foreach (var t in AllTiles)
             {
                 //this.TileLayer.Children.Add(t);

@@ -20,21 +20,13 @@ namespace xpdm.Catan.Controls
         static HexagonalGrid()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(HexagonalGrid), new FrameworkPropertyMetadata(typeof(HexagonalGrid)));
-            HexagonalGrid.GameboardProperty = DependencyProperty.Register("Gameboard", typeof(Gameboard), typeof(HexagonalGrid), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
             HexagonalGrid.RowProperty = DependencyProperty.RegisterAttached("Row", typeof(int), typeof(HexagonalGrid), new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsRender | FrameworkPropertyMetadataOptions.Inherits));
             HexagonalGrid.ColumnProperty = DependencyProperty.RegisterAttached("Column", typeof(int), typeof(HexagonalGrid), new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsRender | FrameworkPropertyMetadataOptions.Inherits));
             HexagonalGrid.GridEdgeLengthProperty = DependencyProperty.Register("GridEdgeLength", typeof(GridLength), typeof(HexagonalGrid), new FrameworkPropertyMetadata(GridLength.Auto, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsParentArrange | FrameworkPropertyMetadataOptions.AffectsParentMeasure | FrameworkPropertyMetadataOptions.AffectsRender));
+            HexagonalGrid.OffsetColumnProperty = DependencyProperty.Register("OffsetColumn", typeof(int), typeof(HexagonalGrid), new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsParentArrange | FrameworkPropertyMetadataOptions.AffectsParentMeasure | FrameworkPropertyMetadataOptions.AffectsRender, OnOffsetColumnChanged, CoerceOffsetColumn), IsValidOffsetColumn);
+            HexagonalGrid.RowsProperty = DependencyProperty.Register("Rows", typeof(int), typeof(HexagonalGrid), new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsParentArrange | FrameworkPropertyMetadataOptions.AffectsParentMeasure | FrameworkPropertyMetadataOptions.AffectsRender, OnRowsChanged, CoerceRows), IsValidRows);
+            HexagonalGrid.ColumnsProperty = DependencyProperty.Register("Columns", typeof(int), typeof(HexagonalGrid), new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure | FrameworkPropertyMetadataOptions.AffectsParentArrange | FrameworkPropertyMetadataOptions.AffectsParentMeasure | FrameworkPropertyMetadataOptions.AffectsRender, OnColumnsChanged, CoerceColumns), IsValidColumns);
         }
-
-        #region Gameboard property
-        public static readonly DependencyProperty GameboardProperty;
-
-        public Gameboard Gameboard
-        {
-            get { return (Gameboard)GetValue(HexagonalGrid.GameboardProperty); }
-            set { SetValue(HexagonalGrid.GameboardProperty, value); }
-        }
-        #endregion
 
         #region Row attached property
         public static readonly DependencyProperty RowProperty;
@@ -72,6 +64,87 @@ namespace xpdm.Catan.Controls
         }
         #endregion
 
+        #region Rows property
+        public static readonly DependencyProperty RowsProperty;
+
+        public int Rows
+        {
+            get { return (int)GetValue(HexagonalGrid.RowsProperty); }
+            set { SetValue(HexagonalGrid.RowsProperty, value); }
+        }
+
+        public static bool IsValidRows(object value)
+        {
+            int val = (int)value;
+            return val >= 0;
+        }
+
+        private static object CoerceRows(DependencyObject o, object baseValue)
+        {
+            int val = (int)baseValue;
+            return IsValidRows(val) ? val : 0;
+        }
+
+        protected static void OnRowsChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
+        {
+
+        }
+        #endregion
+
+        #region Columns property
+        public static readonly DependencyProperty ColumnsProperty;
+
+        public int Columns
+        {
+            get { return (int)GetValue(HexagonalGrid.ColumnsProperty); }
+            set { SetValue(HexagonalGrid.ColumnsProperty, value); }
+        }
+
+        public static bool IsValidColumns(object value)
+        {
+            int val = (int)value;
+            return val >= 0;
+        }
+
+        private static object CoerceColumns(DependencyObject o, object baseValue)
+        {
+            int val = (int)baseValue;
+            return IsValidColumns(val) ? val : 0;
+        }
+
+        protected static void OnColumnsChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
+        {
+
+        }
+        #endregion
+
+        #region OffsetColumn property
+        public static readonly DependencyProperty OffsetColumnProperty;
+
+        public int OffsetColumn
+        {
+            get { return (int)GetValue(HexagonalGrid.OffsetColumnProperty); }
+            set { SetValue(HexagonalGrid.OffsetColumnProperty, value); }
+        }
+
+        public static bool IsValidOffsetColumn(object value)
+        {
+            int val = (int)value;
+            return val == 0 || val == 1;
+        }
+
+        private static object CoerceOffsetColumn(DependencyObject o, object baseValue)
+        {
+            int val = (int)baseValue;
+            return val % 2;
+        }
+
+        protected static void OnOffsetColumnChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
+        {
+
+        }
+        #endregion
+
         private static readonly Size InfiniteSize = new Size(double.PositiveInfinity, double.PositiveInfinity);
         private const double HexMinRadiusToMaxRadiusRatio = 0.8660254037844386467637231707;
 
@@ -80,6 +153,8 @@ namespace xpdm.Catan.Controls
         protected override Size MeasureOverride(Size availableSize)
         {
             var hexRectBounds = new Size(0, 0);
+            var maxRow = 1;
+            var maxColumn = 1;
 
             if (GridEdgeLength.IsAuto || GridEdgeLength.IsStar)
             {
@@ -88,6 +163,8 @@ namespace xpdm.Catan.Controls
                     child.Measure(InfiniteSize);
                     hexRectBounds.Width = Math.Max(hexRectBounds.Width, child.DesiredSize.Width);
                     hexRectBounds.Height = Math.Max(hexRectBounds.Height, child.DesiredSize.Height);
+                    maxRow = Math.Max(maxRow, HexagonalGrid.GetRow(child));
+                    maxColumn = Math.Max(maxColumn, HexagonalGrid.GetColumn(child));
                 }
             }
             else
@@ -102,8 +179,8 @@ namespace xpdm.Catan.Controls
 
             _childSize = hexRectBounds;
 
-            var cols = (Gameboard != null) ? Gameboard.Columns * 0.75 + 0.25 : 1;
-            var rows = (Gameboard != null) ? Gameboard.Rows + 0.5 : 1;
+            var cols = (Columns == 0 ? maxColumn : Columns) * 0.75 + 0.25;
+            var rows = (Rows == 0 ? maxRow : Rows) + 0.5;
 
             var resultSize = new Size(_childSize.Width * cols, _childSize.Height * rows);
 
@@ -125,10 +202,15 @@ namespace xpdm.Catan.Controls
                 var childRow = HexagonalGrid.GetRow(child);
                 var childColumn = HexagonalGrid.GetColumn(child);
                 var xPos = childColumn*_childSize.Width*0.75;
-                var yPos = _childSize.Height * (childRow + (Gameboard.IsOffset(childColumn) ? 0.5 : 0));
+                var yPos = _childSize.Height * (childRow + (this.IsOffsetColumn(childColumn) ? 0.5 : 0));
                 child.Arrange(new Rect(xPos, yPos, _childSize.Width, _childSize.Height));
             }
             return arrangeSize;
+        }
+
+        public bool IsOffsetColumn(int column)
+        {
+            return (column % 2 == OffsetColumn);
         }
     }
 }

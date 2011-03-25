@@ -14,7 +14,7 @@
         </Grid.ColumnDefinitions>
         <ScrollViewer x:Name="View" Grid.Column="0" VerticalScrollBarVisibility="Auto">
             <Viewbox Stretch="UniformToFill">
-                <local:HexagonalGrid x:Name="TheGrid" Margin="12" HorizontalAlignment="Left" VerticalAlignment="Top" GridEdgeLength="128"/>
+                <local:HexagonalGrid x:Name="TheGrid" Margin="12" HorizontalAlignment="Left" VerticalAlignment="Top" GridEdgeLength="128" Columns="9" Rows="8" OffsetColumn="1"/>
             </Viewbox>
         </ScrollViewer>
         <StackPanel Grid.Column="1" Margin="20">
