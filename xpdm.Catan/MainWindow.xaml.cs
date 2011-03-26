@@ -18,6 +18,7 @@ using xpdm.Catan.Core.Board;
 using System.Windows.Markup;
 using xpdm.Catan.Core;
 using System.Diagnostics;
+using xpdm.Catan.Skins;
 
 namespace xpdm.Catan
 {
@@ -250,14 +251,55 @@ namespace xpdm.Catan
             FindAvailableSkins();
         }
 
+        private SkinDescription LoadSkinDescription(string skinName)
+        {
+            SkinDescription skinDescription = null;
+            var skinPath = "Skins/" + skinName + "/Description.xaml";
+            try
+            {
+                skinDescription = Application.LoadComponent(new Uri("/xpdm.Catan;component/" + skinPath, UriKind.Relative)) as SkinDescription;
+            }
+            catch (System.IO.IOException)
+            {
+                /* Handle IOException by assuming component doesn't exist. Swallow error and trace.*/
+                Trace.TraceInformation("Skin description '{0}' not a component.", skinName);
+            }
+            if (skinDescription != null)
+            {
+                skinDescription.Name = skinName;
+                return skinDescription;
+            }
+
+            if (System.IO.File.Exists(skinPath))
+            {
+                using (System.IO.FileStream s = System.IO.File.OpenRead(skinPath))
+                {
+                    skinDescription = (SkinDescription)XamlReader.Load(s, new ParserContext { BaseUri = new Uri("pack://application:,,,/" + skinPath, UriKind.Absolute) });
+                }
+            }
+            if (skinDescription == null)
+            {
+                return new SkinDescription
+                {
+                    Name = skinName,
+                    DisplayName = skinName,
+                    Preview = (Visual)TryFindResource("DefaultSkinPreview"),
+                };
+            }
+            skinDescription.Name = skinName;
+            return skinDescription;
+        }
+
         private void FindAvailableSkins()
         {
             var dirs = from dir in System.IO.Directory.EnumerateDirectories("Skins")
                        where System.IO.File.Exists(System.IO.Path.Combine(dir, "Style.xaml"))
-                       select new ComboBoxItem{Content=System.IO.Path.GetFileName(dir)};
+                       select System.IO.Path.GetFileName(dir);
+            SkinList.Items.Clear();
+            SkinList.Items.Add(LoadSkinDescription("Default"));
             foreach (var dir in dirs)
             {
-                SkinList.Items.Add(dir);
+                SkinList.Items.Add(LoadSkinDescription(dir));
             }
         }
         
@@ -285,6 +327,37 @@ namespace xpdm.Catan
                     Width = sz.Width,
                     Background = b,
                 };
+
+                var skinDescription = (SkinDescription)Application.Current.Properties["CurrentSkinDescription"];
+
+                var license = skinDescription.License;
+                if(!string.IsNullOrEmpty(license))
+                {
+                   license = "License: " + license;
+                }
+
+                var notice = string.Format("{0}\n{1}", skinDescription.CopyrightNotice, license).Trim();
+
+                if (!string.IsNullOrWhiteSpace(notice))
+                {
+                    var t = new TextBlock
+                    {
+                        Text = notice,
+                        FontSize = 8,
+                        Margin = new Thickness(5),
+                        HorizontalAlignment = HorizontalAlignment.Right,
+                        VerticalAlignment = VerticalAlignment.Bottom,
+                        TextAlignment = TextAlignment.Right,
+                    };
+
+                    Canvas.SetRight(t, 0);
+                    Canvas.SetBottom(t, 0);
+
+                    c.Children.Add(t);
+                }
+
+                c.Measure(sz);
+                c.Arrange(new Rect(new Point(capabilities.PageImageableArea.OriginWidth, capabilities.PageImageableArea.OriginHeight), sz));
 
                 printDlg.PrintVisual(c, "Settlers Board Designer");
             }
@@ -410,7 +483,7 @@ namespace xpdm.Catan
         {
             if (e.AddedItems.Count > 0)
             {
-                var newSkinName = ((ComboBoxItem)e.AddedItems[0]).Content.ToString();
+                var newSkinName = ((SkinDescription)e.AddedItems[0]).Name;
 
                 var oldSkinDefinition = Application.Current.Properties["CurrentSkin"] as ResourceDictionary;
                 if (oldSkinDefinition != null)
@@ -431,6 +504,7 @@ namespace xpdm.Catan
                         Application.Current.Properties["CurrentSkin"] = newSkinDefinition;
                     }
                 }
+                Application.Current.Properties["CurrentSkinDescription"] = LoadSkinDescription(newSkinName) ?? LoadSkinDescription("Default");
             }
         }
 
