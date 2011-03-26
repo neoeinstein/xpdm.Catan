@@ -134,10 +134,119 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Content Include="Skins\CatanOnlineWorld\Description.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Style.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Page Include="Skins\Default\Style.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Content Include="Skins\CatanOnlineWorld\Images\Harbors\COW_Hafen-links-oben.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Harbors\COW_Hafen-links-unten.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Harbors\COW_Hafen-oben.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Harbors\COW_Hafen-rechts-oben.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Harbors\COW_Hafen-rechts-unten.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Harbors\COW_Hafen-unten.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Harbors\COW_Hafen_Symb-3zu1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Harbors\COW_Hafen_Symbol.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Resources\COW_Hafen_Symb-Erz.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Resources\COW_Hafen_Symb-Frage.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Resources\COW_Hafen_Symb-Holz.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Resources\COW_Hafen_Symb-Korn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Resources\COW_Hafen_Symb-Lehm.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Resources\COW_Hafen_Symb-Weide.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Resources\RSKarte_buch.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Resources\RSKarte_erz.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Resources\RSKarte_getreide.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Resources\RSKarte_holz.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Resources\RSKarte_lehm.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Resources\RSKarte_muenzen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Resources\RSKarte_tuch.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Resources\RSKarte_wolle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Tiles\COW_Plaett_Berge.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Tiles\COW_Plaett_Gold.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Tiles\COW_Plaett_Kornfeld.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Tiles\COW_Plaett_Lehm.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Tiles\COW_Plaett_Vulkan.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Tiles\COW_Plaett_Wald.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Tiles\COW_Plaett_Wasser.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Tiles\COW_Plaett_Weide.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Tiles\COW_Plaett_Wolke.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Tiles\COW_Plaett_Wolke_dunkel.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Skins\CatanOnlineWorld\Images\Tiles\COW_Plaett_Wueste.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Skins\FourthEditionCore\Style.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
