@@ -248,61 +248,8 @@ namespace xpdm.Catan
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            FindAvailableSkins();
         }
 
-        private SkinDescription LoadSkinDescription(string skinName)
-        {
-            SkinDescription skinDescription = null;
-            var skinPath = "Skins/" + skinName + "/Description.xaml";
-            try
-            {
-                skinDescription = Application.LoadComponent(new Uri("/xpdm.Catan;component/" + skinPath, UriKind.Relative)) as SkinDescription;
-            }
-            catch (System.IO.IOException)
-            {
-                /* Handle IOException by assuming component doesn't exist. Swallow error and trace.*/
-                Trace.TraceInformation("Skin description '{0}' not a component.", skinName);
-            }
-            if (skinDescription != null)
-            {
-                skinDescription.Name = skinName;
-                return skinDescription;
-            }
-
-            if (System.IO.File.Exists(skinPath))
-            {
-                using (System.IO.FileStream s = System.IO.File.OpenRead(skinPath))
-                {
-                    skinDescription = (SkinDescription)XamlReader.Load(s, new ParserContext { BaseUri = new Uri("pack://application:,,,/" + skinPath, UriKind.Absolute) });
-                }
-            }
-            if (skinDescription == null)
-            {
-                return new SkinDescription
-                {
-                    Name = skinName,
-                    DisplayName = skinName,
-                    Preview = (Visual)TryFindResource("DefaultSkinPreview"),
-                };
-            }
-            skinDescription.Name = skinName;
-            return skinDescription;
-        }
-
-        private void FindAvailableSkins()
-        {
-            var dirs = from dir in System.IO.Directory.EnumerateDirectories("Skins")
-                       where System.IO.File.Exists(System.IO.Path.Combine(dir, "Style.xaml"))
-                       select System.IO.Path.GetFileName(dir);
-            SkinList.Items.Clear();
-            SkinList.Items.Add(LoadSkinDescription("Default"));
-            foreach (var dir in dirs)
-            {
-                SkinList.Items.Add(LoadSkinDescription(dir));
-            }
-        }
-        
         private void PrintElement(Visual visual)
         {
             PrintDialog printDlg = new System.Windows.Controls.PrintDialog();
@@ -483,28 +430,7 @@ namespace xpdm.Catan
         {
             if (e.AddedItems.Count > 0)
             {
-                var newSkinName = ((SkinDescription)e.AddedItems[0]).Name;
-
-                var oldSkinDefinition = Application.Current.Properties["CurrentSkin"] as ResourceDictionary;
-                if (oldSkinDefinition != null)
-                {
-                    Application.Current.Resources.MergedDictionaries.Remove(oldSkinDefinition);
-                }
-                if (newSkinName != "Default")
-                {
-                    ResourceDictionary newSkinDefinition = null;
-                    var newSkinPath = "Skins/" + newSkinName + "/Style.xaml";
-                    using (System.IO.FileStream s = System.IO.File.OpenRead(newSkinPath))
-                    {
-                        newSkinDefinition = (ResourceDictionary)XamlReader.Load(s, new ParserContext { BaseUri = new Uri("pack://application:,,,/" + newSkinPath, UriKind.Absolute) });
-                    }
-                    if (newSkinDefinition != null)
-                    {
-                        Application.Current.Resources.MergedDictionaries.Add(newSkinDefinition);
-                        Application.Current.Properties["CurrentSkin"] = newSkinDefinition;
-                    }
-                }
-                Application.Current.Properties["CurrentSkinDescription"] = LoadSkinDescription(newSkinName) ?? LoadSkinDescription("Default");
+                SkinManager.Instance.ApplySkin((SkinDescription)e.AddedItems[0]);
             }
         }
 

@@ -125,6 +125,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Skins\SkinDescription.cs" />
+    <Compile Include="Skins\SkinManager.cs" />
     <Page Include="Controls\Chit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

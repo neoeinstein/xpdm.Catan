@@ -116,7 +116,11 @@
             <StackPanel>
                 <WrapPanel Margin="0,5">
                     <TextBlock VerticalAlignment="Center">Skin:</TextBlock>
-                    <ComboBox x:Name="SkinList"  Margin="5" HorizontalAlignment="Left" SelectedIndex="0" SelectionChanged="SkinComboBox_SelectionChanged" SelectedValuePath="Name" ItemTemplate="{DynamicResource SkinComboBoxItemTemplate}"/>
+                    <ComboBox Margin="5" HorizontalAlignment="Left"
+                              SelectedIndex="0" SelectionChanged="SkinComboBox_SelectionChanged"
+                              SelectedValuePath="Name"
+                              ItemTemplate="{DynamicResource SkinComboBoxItemTemplate}"
+                              ItemsSource="{Binding Source={x:Static skin:SkinManager.Instance}, Path=Skins}"/>
                 </WrapPanel>
                 <Button Name="PrintBoard" Margin="5" HorizontalAlignment="Right" Content="Print Board" Click="PrintBoard_Click"/>
             </StackPanel>
