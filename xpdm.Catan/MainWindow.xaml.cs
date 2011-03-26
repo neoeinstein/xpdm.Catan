@@ -355,6 +355,10 @@ namespace xpdm.Catan
 
                     c.Children.Add(t);
                 }
+
+                c.Measure(sz);
+                c.Arrange(new Rect(new Point(capabilities.PageImageableArea.OriginWidth, capabilities.PageImageableArea.OriginHeight), sz));
+
                 printDlg.PrintVisual(c, "Settlers Board Designer");
             }
         }
