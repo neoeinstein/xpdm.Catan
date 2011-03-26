@@ -1,0 +1,30 @@
+﻿<skin:SkinDescription xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                      xmlns:control="clr-namespace:xpdm.Catan.Controls;assembly=xpdm.Catan"
+                      xmlns:skin="clr-namespace:xpdm.Catan.Skins;assembly=xpdm.Catan"
+                      DisplayName="Default">
+    <skin:SkinDescription.Description>
+        <sys:String>A good default.</sys:String>
+    </skin:SkinDescription.Description>
+    <skin:SkinDescription.Preview>
+        <Canvas>
+            <Canvas.Resources>
+                <ResourceDictionary>
+                    <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="Style.xaml"/>
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
+            </Canvas.Resources>
+            <control:HexagonalGrid GridEdgeLength="128" OffsetColumn="0" Columns="3" Rows="3">
+                <Canvas control:HexagonalGrid.Column="0" control:HexagonalGrid.Row="0" Background="{StaticResource BrickATileBackground}"/>
+                <Canvas control:HexagonalGrid.Column="1" control:HexagonalGrid.Row="0" Background="{StaticResource OreATileBackground}"/>
+                <Canvas control:HexagonalGrid.Column="2" control:HexagonalGrid.Row="0" Background="{StaticResource SheepATileBackground}"/>
+                <Canvas control:HexagonalGrid.Column="0" control:HexagonalGrid.Row="1" Background="{StaticResource WheatATileBackground}"/>
+                <Canvas control:HexagonalGrid.Column="1" control:HexagonalGrid.Row="1" Background="{StaticResource OceanATileBackground}"/>
+                <Canvas control:HexagonalGrid.Column="2" control:HexagonalGrid.Row="1" Background="{StaticResource WoodATileBackground}"/>
+                <Canvas control:HexagonalGrid.Column="1" control:HexagonalGrid.Row="2" Background="{StaticResource DesertATileBackground}"/>
+            </control:HexagonalGrid>
+        </Canvas>
+    </skin:SkinDescription.Preview>
+</skin:SkinDescription>

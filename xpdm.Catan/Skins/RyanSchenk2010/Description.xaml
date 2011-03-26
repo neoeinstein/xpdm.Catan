@@ -3,7 +3,7 @@
                       xmlns:sys="clr-namespace:System;assembly=mscorlib"
                       xmlns:control="clr-namespace:xpdm.Catan.Controls;assembly=xpdm.Catan"
                       xmlns:skin="clr-namespace:xpdm.Catan.Skins;assembly=xpdm.Catan"
-                      DisplayName="Ryan Schenk Settlers Tiles (Vector)">
+                      DisplayName="Ryan Schenk Settlers Tiles (Raster)">
     <skin:SkinDescription.Description>
         <sys:String>A collection of high-contrast and visually distinct tiles that also work well when printed in grayscale or viewed by the colorblind.</sys:String>
     </skin:SkinDescription.Description>
@@ -11,22 +11,13 @@
         <Canvas>
             <Canvas.Resources>
                 <ResourceDictionary>
-                    <ResourceDictionary.MergedDictionaries>
-                        <ResourceDictionary Source="Images/Tiles/Brick.xaml"/>
-                        <ResourceDictionary Source="Images/Tiles/Ore.xaml"/>
-                        <ResourceDictionary Source="Images/Tiles/Sheep.xaml"/>
-                        <ResourceDictionary Source="Images/Tiles/Wheat.xaml"/>
-                        <ResourceDictionary Source="Images/Tiles/Wood.xaml"/>
-                        <ResourceDictionary Source="Images/Tiles/Desert.xaml"/>
-                        <ResourceDictionary Source="Images/Tiles/Ocean.xaml"/>
-                    </ResourceDictionary.MergedDictionaries>
-                    <VisualBrush x:Key="Brick" Visual="{StaticResource BrickCanvas}" />
-                    <VisualBrush x:Key="Ore" Visual="{StaticResource OreCanvas}" />
-                    <VisualBrush x:Key="Sheep" Visual="{StaticResource SheepCanvas}" />
-                    <VisualBrush x:Key="Wheat" Visual="{StaticResource WheatCanvas}" />
-                    <VisualBrush x:Key="Wood" Visual="{StaticResource WoodCanvas}" />
-                    <VisualBrush x:Key="Ocean" Visual="{StaticResource OceanCanvas}" />
-                    <VisualBrush x:Key="Desert" Visual="{StaticResource DesertCanvas}" />
+                    <ImageBrush x:Key="Brick" ImageSource="Images/Tiles/Brick.png" />
+                    <ImageBrush x:Key="Ore" ImageSource="Images/Tiles/Ore.png" />
+                    <ImageBrush x:Key="Sheep" ImageSource="Images/Tiles/Sheep.png" />
+                    <ImageBrush x:Key="Wheat" ImageSource="Images/Tiles/Wheat.png" />
+                    <ImageBrush x:Key="Wood" ImageSource="Images/Tiles/Wood.png" />
+                    <ImageBrush x:Key="Ocean" ImageSource="Images/Tiles/Ocean.png" />
+                    <ImageBrush x:Key="Desert" ImageSource="Images/Tiles/Desert.png" />
                 </ResourceDictionary>
             </Canvas.Resources>
             <control:HexagonalGrid GridEdgeLength="128" OffsetColumn="0" Columns="3" Rows="3">
