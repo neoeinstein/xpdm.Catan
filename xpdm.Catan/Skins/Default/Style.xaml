@@ -425,6 +425,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    <Style TargetType="control:Chit">
-    </Style>
+    <StackPanel x:Key="DefaultSkinPreview" Height="150">
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="N/A"/>
+    </StackPanel>
 </ResourceDictionary>

@@ -124,8 +124,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BoardDesigner.xaml.cs">
+      <DependentUpon>BoardDesigner.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Skins\SkinDescription.cs" />
     <Compile Include="Skins\SkinManager.cs" />
+    <Page Include="BoardDesigner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Chit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
