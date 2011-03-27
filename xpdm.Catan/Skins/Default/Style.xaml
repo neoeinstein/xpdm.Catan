@@ -336,11 +336,21 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    <DataTemplate x:Key="SkinComboBoxSelectionItemTemplate">
+    <Style x:Key="SkinComboBoxStyle" TargetType="ComboBox">
+        <Setter Property="ItemTemplate" Value="{DynamicResource SkinComboBoxCompactItemTemplate}"/>
+        <!--Style.Triggers>
+            <Trigger Property="IsDropDownOpen" Value="True">
+                <Trigger.Setters>
+                    <Setter Property="ItemTemplate" Value="{DynamicResource SkinComboBoxItemTemplate}"/>
+                </Trigger.Setters>
+            </Trigger>
+        </Style.Triggers-->
+    </Style>
+    <DataTemplate x:Key="SkinComboBoxCompactItemTemplate">
         <StackPanel Orientation="Horizontal" Margin="2">
             <Rectangle Stretch="Uniform" Height="20" Width="20">
                 <Rectangle.Fill>
-                    <VisualBrush Visual="{Binding Preview}"/>
+                    <VisualBrush Visual="{Binding SmallPreview}"/>
                 </Rectangle.Fill>
             </Rectangle>
             <TextBlock Text="{Binding DisplayName}" Margin="5,0,0,0" />
