@@ -6,32 +6,47 @@
     <ImageBrush x:Key="BrickCTileBackground" ImageSource="Images/Tiles/BrickC.png" />
     <ImageBrush x:Key="BrickDTileBackground" ImageSource="Images/Tiles/BrickD.png" />
     <ImageBrush x:Key="BrickETileBackground" ImageSource="Images/Tiles/BrickE.png" />
+    <ImageBrush x:Key="BrickFTileBackground" ImageSource="Images/Tiles/BrickF.png" />
+    <ImageBrush x:Key="BrickGTileBackground" ImageSource="Images/Tiles/BrickG.png" />
     <ImageBrush x:Key="OreATileBackground" ImageSource="Images/Tiles/OreA.png" />
     <ImageBrush x:Key="OreBTileBackground" ImageSource="Images/Tiles/OreB.png" />
     <ImageBrush x:Key="OreCTileBackground" ImageSource="Images/Tiles/OreC.png" />
     <ImageBrush x:Key="OreDTileBackground" ImageSource="Images/Tiles/OreD.png" />
     <ImageBrush x:Key="OreETileBackground" ImageSource="Images/Tiles/OreE.png" />
+    <ImageBrush x:Key="OreFTileBackground" ImageSource="Images/Tiles/OreF.png" />
+    <ImageBrush x:Key="OreGTileBackground" ImageSource="Images/Tiles/OreG.png" />
     <ImageBrush x:Key="SheepATileBackground" ImageSource="Images/Tiles/SheepA.png" />
     <ImageBrush x:Key="SheepBTileBackground" ImageSource="Images/Tiles/SheepB.png" />
     <ImageBrush x:Key="SheepCTileBackground" ImageSource="Images/Tiles/SheepC.png" />
     <ImageBrush x:Key="SheepDTileBackground" ImageSource="Images/Tiles/SheepD.png" />
     <ImageBrush x:Key="SheepETileBackground" ImageSource="Images/Tiles/SheepE.png" />
     <ImageBrush x:Key="SheepFTileBackground" ImageSource="Images/Tiles/SheepF.png" />
+    <ImageBrush x:Key="SheepGTileBackground" ImageSource="Images/Tiles/SheepG.png" />
     <ImageBrush x:Key="WheatATileBackground" ImageSource="Images/Tiles/WheatA.png" />
     <ImageBrush x:Key="WheatBTileBackground" ImageSource="Images/Tiles/WheatB.png" />
     <ImageBrush x:Key="WheatCTileBackground" ImageSource="Images/Tiles/WheatC.png" />
     <ImageBrush x:Key="WheatDTileBackground" ImageSource="Images/Tiles/WheatD.png" />
     <ImageBrush x:Key="WheatETileBackground" ImageSource="Images/Tiles/WheatE.png" />
     <ImageBrush x:Key="WheatFTileBackground" ImageSource="Images/Tiles/WheatF.png" />
+    <ImageBrush x:Key="WheatGTileBackground" ImageSource="Images/Tiles/WheatG.png" />
     <ImageBrush x:Key="WoodATileBackground" ImageSource="Images/Tiles/WoodA.png" />
     <ImageBrush x:Key="WoodBTileBackground" ImageSource="Images/Tiles/WoodB.png" />
     <ImageBrush x:Key="WoodDTileBackground" ImageSource="Images/Tiles/WoodC.png" />
     <ImageBrush x:Key="WoodCTileBackground" ImageSource="Images/Tiles/WoodD.png" />
     <ImageBrush x:Key="WoodETileBackground" ImageSource="Images/Tiles/WoodE.png" />
     <ImageBrush x:Key="WoodFTileBackground" ImageSource="Images/Tiles/WoodF.png" />
+    <ImageBrush x:Key="WoodGTileBackground" ImageSource="Images/Tiles/WoodG.png" />
     <ImageBrush x:Key="DesertATileBackground" ImageSource="Images/Tiles/DesertA.png" />
     <ImageBrush x:Key="DesertBTileBackground" ImageSource="Images/Tiles/DesertB.png" />
+    <ImageBrush x:Key="DesertCTileBackground" ImageSource="Images/Tiles/DesertC.png" />
+    <ImageBrush x:Key="DesertDTileBackground" ImageSource="Images/Tiles/DesertD.png" />
+    <ImageBrush x:Key="DesertETileBackground" ImageSource="Images/Tiles/DesertE.png" />
     <ImageBrush x:Key="OceanATileBackground" ImageSource="Images/Tiles/OceanA.png" />
+    <ImageBrush x:Key="OceanBTileBackground" ImageSource="Images/Tiles/OceanB.png" />
+    <ImageBrush x:Key="GoldATileBackground" ImageSource="Images/Tiles/GoldA.png" />
+    <ImageBrush x:Key="GoldBTileBackground" ImageSource="Images/Tiles/GoldB.png" />
+    <ImageBrush x:Key="GoldCTileBackground" ImageSource="Images/Tiles/GoldC.png" />
+    <ImageBrush x:Key="GoldDTileBackground" ImageSource="Images/Tiles/GoldD.png" />
 
     <SolidColorBrush x:Key="TileBackground" Color="White" />
     <SolidColorBrush x:Key="CatanBlank" Color="Bisque" />

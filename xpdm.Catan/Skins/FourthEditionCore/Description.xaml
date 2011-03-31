@@ -18,6 +18,7 @@
                     <ImageBrush x:Key="Wood" ImageSource="Images/Tiles/WoodA.png" />
                     <ImageBrush x:Key="Ocean" ImageSource="Images/Tiles/OceanA.png" />
                     <ImageBrush x:Key="Desert" ImageSource="Images/Tiles/DesertA.png" />
+                    <ImageBrush x:Key="Gold" ImageSource="Images/Tiles/GoldA.png" />
                 </ResourceDictionary>
             </Canvas.Resources>
             <control:HexagonalGrid GridEdgeLength="128" OffsetColumn="0" Columns="3" Rows="3">
@@ -25,7 +26,7 @@
                 <Canvas control:HexagonalGrid.Column="1" control:HexagonalGrid.Row="0" Background="{StaticResource Ore}"/>
                 <Canvas control:HexagonalGrid.Column="2" control:HexagonalGrid.Row="0" Background="{StaticResource Sheep}"/>
                 <Canvas control:HexagonalGrid.Column="0" control:HexagonalGrid.Row="1" Background="{StaticResource Wheat}"/>
-                <Canvas control:HexagonalGrid.Column="1" control:HexagonalGrid.Row="1" Background="{StaticResource Ocean}"/>
+                <Canvas control:HexagonalGrid.Column="1" control:HexagonalGrid.Row="1" Background="{StaticResource Gold}"/>
                 <Canvas control:HexagonalGrid.Column="2" control:HexagonalGrid.Row="1" Background="{StaticResource Wood}"/>
                 <Canvas control:HexagonalGrid.Column="1" control:HexagonalGrid.Row="2" Background="{StaticResource Desert}"/>
             </control:HexagonalGrid>
@@ -35,11 +36,11 @@
         <Canvas>
             <Canvas.Resources>
                 <ResourceDictionary>
-                    <ImageBrush x:Key="Ore" ImageSource="Images/Tiles/OreA.png" />
+                    <ImageBrush x:Key="Gold" ImageSource="Images/Tiles/GoldA.png" />
                 </ResourceDictionary>
             </Canvas.Resources>
             <control:HexagonalGrid GridEdgeLength="128" OffsetColumn="1" Columns="1" Rows="1">
-                <Canvas control:HexagonalGrid.Column="0" control:HexagonalGrid.Row="0" Background="{StaticResource Ore}"/>
+                <Canvas control:HexagonalGrid.Column="0" control:HexagonalGrid.Row="0" Background="{StaticResource Gold}"/>
             </control:HexagonalGrid>
         </Canvas>
     </skin:SkinDescription.SmallPreview>
