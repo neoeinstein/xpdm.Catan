@@ -350,7 +350,7 @@
         <StackPanel Orientation="Horizontal" Margin="2">
             <Rectangle Stretch="Uniform" Height="20" Width="20">
                 <Rectangle.Fill>
-                    <VisualBrush Visual="{Binding SmallPreview}"/>
+                    <VisualBrush Visual="{Binding SmallPreview}" Stretch="Uniform" AlignmentX="Center" AlignmentY="Center"/>
                 </Rectangle.Fill>
             </Rectangle>
             <TextBlock Text="{Binding DisplayName}" Margin="5,0,0,0" />
