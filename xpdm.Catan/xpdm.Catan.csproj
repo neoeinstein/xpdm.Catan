@@ -127,6 +127,15 @@
     <Compile Include="BoardDesigner.xaml.cs">
       <DependentUpon>BoardDesigner.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BoardDesignerViewModel.cs" />
+    <Compile Include="Core\Board\ITileFeature.cs" />
+    <Compile Include="Core\Board\Tile.cs" />
+    <Compile Include="Core\DieType.cs" />
+    <Compile Include="Core\GameManager.cs" />
+    <Compile Include="Core\GenerationDieRollEffect.cs" />
+    <Compile Include="Core\IDiceService.cs" />
+    <Compile Include="Core\IDieRollEffect.cs" />
+    <Compile Include="Core\IGameManager.cs" />
     <Compile Include="Skins\SkinDescription.cs" />
     <Compile Include="Skins\SkinManager.cs" />
     <Page Include="BoardDesigner.xaml">

@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace xpdm.Catan.Core
 {
     enum HextantDirection
     {
-        Up = 0,
-        UpRight = 1,
-        DownRight = 2,
-        Down = 3,
-        DownLeft = 4,
-        UpLeft = 5,
+        None = 0,
+        Up = 1,
+        UpRight = 2,
+        DownRight = 3,
+        Down = 4,
+        DownLeft = 5,
+        UpLeft = 6,
+
+        Center = None,
     }
 }

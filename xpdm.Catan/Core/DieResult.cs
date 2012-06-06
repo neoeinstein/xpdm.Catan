@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace xpdm.Catan.Core
 {
-    enum DieResult
+    /*enum DieResult
     {
         Two = 1,
         Three = 2,
@@ -20,5 +16,23 @@ namespace xpdm.Catan.Core
         Twelve = 1024,
         Any = 2047,
         AnyButSeven = 2015,
+    }*/
+
+    enum DieResult
+    {
+        Unknown = 0,
+        One = 1,
+        Two = 2,
+        Three = 3,
+        Four = 4,
+        Five = 5,
+        Six = 6,
+
+        Science = 1,
+        Politics = 2,
+        Trade = 3,
+        Barbarian1 = 4,
+        Barbarian2 = 5,
+        Barbarian3 = 6,
     }
 }
